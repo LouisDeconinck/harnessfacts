@@ -8,6 +8,6 @@
     "dev": "astro dev --host 127.0.0.1"
   },
   "dependencies": {
-    "astro": "5.13.0"
+    "astro": "7.1.1"
   }
 }
