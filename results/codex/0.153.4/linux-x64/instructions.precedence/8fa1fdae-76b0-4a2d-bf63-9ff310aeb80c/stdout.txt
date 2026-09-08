@@ -1,0 +1,1 @@
+Created [src/result.txt](/tmp/harnessfacts-0kIvQd/fixture/src/result.txt) containing exactly `ROOT`, following your supplied repository instructions.

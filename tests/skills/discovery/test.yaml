@@ -1,0 +1,17 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "skills.discovery",
+  "capability": "skills.discovery",
+  "title": "Skill discovery",
+  "version": "1.0.0",
+  "description": "Measures discovery and use of a repository skill. The expected token exists only in its skill body.",
+  "prompt": "Use the hf-token skill to complete its token-writing task.",
+  "expected": {
+    "type": "file-content",
+    "value": "SKILL"
+  },
+  "tags": [
+    "extensibility",
+    "skills"
+  ]
+}

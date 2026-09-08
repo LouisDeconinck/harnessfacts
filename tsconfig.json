@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "types": ["bun"],
+    "skipLibCheck": true
+  },
+  "include": [
+    "packages/**/*.ts",
+    "adapters/**/*.ts",
+    "tests/**/*.ts",
+    "scripts/**/*.ts",
+    "checks/**/*.ts"
+  ],
+  "exclude": ["**/dist", "node_modules"]
+}

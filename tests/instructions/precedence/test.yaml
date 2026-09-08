@@ -1,0 +1,17 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "instructions.precedence",
+  "capability": "instructions.precedence",
+  "title": "Instruction precedence",
+  "version": "1.0.0",
+  "description": "Measures which instruction takes precedence when root and nested instructions conflict.",
+  "prompt": "Read src/task.txt and follow the instructions applicable to it. Complete the task in that directory.",
+  "expected": {
+    "type": "file-content",
+    "value": "NESTED"
+  },
+  "tags": [
+    "instructions",
+    "repository"
+  ]
+}

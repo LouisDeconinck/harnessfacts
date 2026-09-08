@@ -1,0 +1,113 @@
+{
+  "schema": "harnessfacts.fixture-sources/v1",
+  "tests": [
+    {
+      "id": "execution.headless",
+      "files": [
+        {
+          "path": "task.txt",
+          "text": "Write exactly HEADLESS into result.txt in the current directory.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    (await ctx.read(\"result.txt\"))?.trim() === ctx.test.expected.value;\n  return {\n    pass,\n    summary: pass\n      ? \"Expected token was written.\"\n      : \"Expected token was not written.\",\n  };\n}\n"
+    },
+    {
+      "id": "execution.structured-output",
+      "files": [
+        {
+          "path": "task.txt",
+          "text": "Respond with a JSON object containing only the property token with value STRUCTURED. Do not include prose or code fences.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  let pass = false;\n  try {\n    const value = JSON.parse((await ctx.read(\".response.json\")) || \"null\");\n    pass =\n      value?.token === ctx.test.expected.value &&\n      Object.keys(value).length === 1;\n  } catch {\n    /* Invalid JSON fails the capability test. */\n  }\n  return {\n    pass,\n    summary: pass\n      ? \"Structured response matched the expected object.\"\n      : \"No valid structured final response.\",\n  };\n}\n"
+    },
+    {
+      "id": "instructions.nested",
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "text": "For tasks in this repository, follow the instructions applicable to the task directory. Write output only inside that directory.\n"
+        },
+        {
+          "path": "src/AGENTS.md",
+          "text": "For tasks in this directory, write exactly NESTED into result.txt in this directory.\n"
+        },
+        {
+          "path": "src/task.txt",
+          "text": "Write the token specified by the applicable repository instructions to result.txt in this directory.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    (await ctx.read(\"src/result.txt\"))?.trim() === ctx.test.expected.value;\n  return {\n    pass,\n    summary: pass\n      ? \"Nested instruction was applied.\"\n      : \"Expected nested token was not written.\",\n  };\n}\n"
+    },
+    {
+      "id": "instructions.precedence",
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "text": "For all tasks in this repository write exactly ROOT into result.txt in the task directory.\n"
+        },
+        {
+          "path": "src/AGENTS.md",
+          "text": "For tasks in this directory write exactly NESTED into result.txt in this directory.\n"
+        },
+        {
+          "path": "src/task.txt",
+          "text": "Write the token specified by applicable repository instructions into result.txt in this directory.\n"
+        },
+        {
+          "path": "task.txt",
+          "text": "Read src/task.txt and follow the instructions applicable to it. Complete the task in that directory.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    (await ctx.read(\"src/result.txt\"))?.trim() === ctx.test.expected.value;\n  return {\n    pass,\n    summary: pass\n      ? \"Expected token was written.\"\n      : \"Expected token was not written.\",\n  };\n}\n"
+    },
+    {
+      "id": "instructions.root",
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "text": "Write exactly ROOT into result.txt for the task in this repository.\n"
+        },
+        {
+          "path": "task.txt",
+          "text": "Read task.txt and follow the applicable repository instructions. Write the requested token to result.txt.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    (await ctx.read(\"result.txt\"))?.trim() === ctx.test.expected.value;\n  return {\n    pass,\n    summary: pass\n      ? \"Expected token was written.\"\n      : \"Expected token was not written.\",\n  };\n}\n"
+    },
+    {
+      "id": "mcp.http",
+      "files": [
+        {
+          "path": "task.txt",
+          "text": "Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.\n"
+        }
+      ],
+      "evaluator": "export { evaluate } from \"../evaluate.ts\";\n\nimport { setupMcp } from \"../setup.ts\";\nexport const setup = (base: string) => setupMcp(base, \"http\");\n"
+    },
+    {
+      "id": "mcp.stdio",
+      "files": [
+        {
+          "path": "task.txt",
+          "text": "Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.\n"
+        }
+      ],
+      "evaluator": "export { evaluate } from \"../evaluate.ts\";\n\nimport { setupMcp } from \"../setup.ts\";\nexport const setup = (base: string) => setupMcp(base, \"stdio\");\n"
+    },
+    {
+      "id": "skills.discovery",
+      "files": [
+        {
+          "path": "skill-source.md",
+          "text": "---\nname: hf-token\ndescription: Use this skill for the HarnessFacts token-writing task.\n---\nWrite exactly SKILL into result.txt in the current repository.\n"
+        },
+        {
+          "path": "task.txt",
+          "text": "Use the hf-token skill to complete its token-writing task.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    (await ctx.read(\"result.txt\"))?.trim() === ctx.test.expected.value;\n  return {\n    pass,\n    summary: pass\n      ? \"Expected token was written.\"\n      : \"Expected token was not written.\",\n  };\n}\n"
+    }
+  ]
+}

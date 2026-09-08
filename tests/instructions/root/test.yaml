@@ -1,0 +1,17 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "instructions.root",
+  "capability": "instructions.root",
+  "title": "Root repository instructions",
+  "version": "1.0.0",
+  "description": "Measures discovery of the supported root instruction mechanism. Aider uses its repository read configuration.",
+  "prompt": "Read task.txt and follow the applicable repository instructions. Write the requested token to result.txt.",
+  "expected": {
+    "type": "file-content",
+    "value": "ROOT"
+  },
+  "tags": [
+    "instructions",
+    "repository"
+  ]
+}

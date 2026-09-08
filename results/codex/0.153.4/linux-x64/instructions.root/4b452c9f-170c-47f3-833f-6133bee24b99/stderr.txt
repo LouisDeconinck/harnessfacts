@@ -1,0 +1,37 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-QohMB0/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0803e-bb77-74d1-b8a1-71b30b127536
+--------
+user
+Read task.txt and follow the applicable repository instructions. Write the requested token to result.txt.
+codex
+I’ll read the task and repository instructions, then write the token to `result.txt`.
+
+exec
+/bin/bash -lc "pwd; rg --files -g 'AGENTS.md' -g 'task.txt' -g 'result.txt' -g '"'! .git'"'" in /tmp/harnessfacts-QohMB0/fixture
+ succeeded in 0ms:
+/tmp/harnessfacts-QohMB0/fixture
+task.txt
+AGENTS.md
+
+exec
+/bin/bash -lc 'cat task.txt; if [ -f AGENTS.md ]; then cat AGENTS.md; fi' in /tmp/harnessfacts-QohMB0/fixture
+ succeeded in 0ms:
+Read task.txt and follow the applicable repository instructions. Write the requested token to result.txt.
+Write exactly ROOT into result.txt for the task in this repository.
+
+exec
+/bin/bash -lc 'printf ROOT > result.txt' in /tmp/harnessfacts-QohMB0/fixture
+ succeeded in 0ms:
+codex
+Wrote exactly `ROOT` to `result.txt`.
+tokens used
+3,855

@@ -1,0 +1,16 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "execution.headless",
+  "capability": "execution.headless",
+  "title": "Headless execution",
+  "version": "1.0.0",
+  "description": "Measures noninteractive completion of a deterministic file-writing task with stdin closed.",
+  "prompt": "Write exactly HEADLESS into result.txt in the current directory.",
+  "expected": {
+    "type": "file-content",
+    "value": "HEADLESS"
+  },
+  "tags": [
+    "execution"
+  ]
+}

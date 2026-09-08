@@ -1,0 +1,25 @@
+{
+  "name": "harnessfacts",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": {
+    "harnessfacts": "./dist/packages/cli/src/index.ts"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "bun": ">=1.3.10"
+  },
+  "dependencies": {
+    "zod": "4.3.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LouisDeconinck/harnessfacts.git",
+    "directory": "packages/cli"
+  }
+}

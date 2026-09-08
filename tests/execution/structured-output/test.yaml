@@ -1,0 +1,16 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "execution.structured-output",
+  "capability": "execution.structured-output",
+  "title": "Structured output",
+  "version": "1.0.0",
+  "description": "Measures whether the requested machine-readable response contains the expected token. Adapters extract only final response payloads from documented JSON envelopes.",
+  "prompt": "Respond with a JSON object containing only the property token with value STRUCTURED. Do not include prose or code fences.",
+  "expected": {
+    "type": "json-object",
+    "value": "STRUCTURED"
+  },
+  "tags": [
+    "execution"
+  ]
+}

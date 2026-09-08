@@ -1,0 +1,11 @@
+{
+  "schema": "harnessfacts.claim/v1",
+  "agent": "claude-code",
+  "capability": "execution.structured-output",
+  "status": "documented",
+  "source": {
+    "url": "https://code.claude.com/docs/en/cli-reference",
+    "title": "Claude Code CLI reference",
+    "accessedAt": "2026-09-08"
+  }
+}

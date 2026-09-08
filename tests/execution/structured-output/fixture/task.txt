@@ -1,0 +1,1 @@
+Respond with a JSON object containing only the property token with value STRUCTURED. Do not include prose or code fences.

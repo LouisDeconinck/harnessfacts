@@ -1,0 +1,19 @@
+---
+import Matrix from "../components/Matrix.astro";
+import { agents } from "../data";
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Compare agents"><div class="eyebrow">Compare behavior, not intelligence</div><h1>Your agents.<br />The recorded facts.</h1><p class="muted">Select up to four agents. Filter capabilities. Follow the evidence.</p><fieldset id="agent-selection"><legend>Agents (up to 4)</legend>{agents.map((agent, index) => <label><input type="checkbox" value={agent.id} checked={index < 4} />{agent.name}</label>)}</fieldset><p id="selection-status" role="status" class="muted"></p><div class="filters"><label for="category">Capability group</label><select id="category"><option value="all">All capabilities</option><option value="instructions">Instructions</option><option value="mcp">MCP</option><option value="execution">Execution</option><option value="extensibility">Extensibility</option><option value="git">Git behavior</option></select></div><Matrix filterable /><noscript><p>The full comparison is shown without JavaScript. Enable JavaScript to select columns and filter rows.</p></noscript></Layout>
+<script>
+const checkboxes = [...document.querySelectorAll<HTMLInputElement>('#agent-selection input')];
+const category = document.querySelector<HTMLSelectElement>('#category')!;
+function update() {
+ const selected = checkboxes.filter(c => c.checked).map(c => c.value);
+ for (const checkbox of checkboxes) checkbox.disabled = !checkbox.checked && selected.length >= 4;
+ for (const cell of document.querySelectorAll<HTMLElement>('[data-agent]')) cell.hidden = !selected.includes(cell.dataset.agent!);
+ for (const row of document.querySelectorAll<HTMLElement>('[data-category]')) row.hidden = category.value !== 'all' && row.dataset.category !== category.value;
+ document.querySelector('#selection-status')!.textContent = selected.length ? `${selected.length} of 4 agents selected.` : 'Select an agent to see its results.';
+}
+for (const checkbox of checkboxes) checkbox.addEventListener('change', update);
+category.addEventListener('change', update); update();
+</script>

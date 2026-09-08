@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.env
+*.log
+apps/web/public/results/
+*.tgz

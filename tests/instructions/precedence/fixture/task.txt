@@ -1,0 +1,1 @@
+Read src/task.txt and follow the instructions applicable to it. Complete the task in that directory.

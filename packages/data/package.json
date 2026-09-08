@@ -1,0 +1,23 @@
+{
+  "name": "@harnessfacts/data",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./data.json": "./dist/data.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LouisDeconinck/harnessfacts.git",
+    "directory": "packages/data"
+  }
+}

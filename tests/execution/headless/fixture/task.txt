@@ -1,0 +1,1 @@
+Write exactly HEADLESS into result.txt in the current directory.

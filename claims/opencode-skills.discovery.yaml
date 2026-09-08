@@ -1,0 +1,11 @@
+{
+  "schema": "harnessfacts.claim/v1",
+  "agent": "opencode",
+  "capability": "skills.discovery",
+  "status": "documented",
+  "source": {
+    "url": "https://opencode.ai/docs/skills/",
+    "title": "OpenCode skills",
+    "accessedAt": "2026-09-08"
+  }
+}

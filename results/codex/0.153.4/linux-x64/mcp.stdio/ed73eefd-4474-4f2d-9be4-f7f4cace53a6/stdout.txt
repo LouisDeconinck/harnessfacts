@@ -1,0 +1,1 @@
+The `get_token` call was blocked because it requires approval, but this session’s approval policy is `never`. No token was returned, so I couldn’t write `result.txt`.

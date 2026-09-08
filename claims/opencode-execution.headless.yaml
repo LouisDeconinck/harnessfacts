@@ -1,0 +1,11 @@
+{
+  "schema": "harnessfacts.claim/v1",
+  "agent": "opencode",
+  "capability": "execution.headless",
+  "status": "documented",
+  "source": {
+    "url": "https://opencode.ai/docs/cli/",
+    "title": "OpenCode CLI",
+    "accessedAt": "2026-09-08"
+  }
+}

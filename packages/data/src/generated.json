@@ -1,0 +1,1932 @@
+{
+  "testHistory": [],
+  "schema": "harnessfacts.data/v1",
+  "agents": [
+    {
+      "schema": "harnessfacts.agent/v1",
+      "id": "aider",
+      "name": "Aider",
+      "vendor": "Aider contributors",
+      "website": "https://aider.chat/docs/config/options.html",
+      "documentation": "https://aider.chat/docs/config/options.html",
+      "invocation": {
+        "kind": "cli"
+      },
+      "platforms": {
+        "linux": true,
+        "macos": true,
+        "windows": true
+      },
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.agent/v1",
+      "id": "claude-code",
+      "name": "Claude Code",
+      "vendor": "Anthropic",
+      "website": "https://code.claude.com/docs/en/cli-reference",
+      "documentation": "https://code.claude.com/docs/en/cli-reference",
+      "invocation": {
+        "kind": "cli"
+      },
+      "platforms": {
+        "linux": true,
+        "macos": true,
+        "windows": true
+      },
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.agent/v1",
+      "id": "codex",
+      "name": "OpenAI Codex",
+      "vendor": "OpenAI",
+      "website": "https://developers.openai.com/codex/",
+      "documentation": "https://developers.openai.com/codex/cli/reference/",
+      "invocation": {
+        "kind": "cli"
+      },
+      "platforms": {
+        "linux": true,
+        "macos": true,
+        "windows": true
+      },
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.agent/v1",
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "vendor": "Google",
+      "website": "https://geminicli.com/docs/cli/headless/",
+      "documentation": "https://geminicli.com/docs/cli/headless/",
+      "invocation": {
+        "kind": "cli"
+      },
+      "platforms": {
+        "linux": true,
+        "macos": true,
+        "windows": true
+      },
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.agent/v1",
+      "id": "opencode",
+      "name": "OpenCode",
+      "vendor": "Anomaly",
+      "website": "https://opencode.ai/docs/cli/",
+      "documentation": "https://opencode.ai/docs/cli/",
+      "invocation": {
+        "kind": "cli"
+      },
+      "platforms": {
+        "linux": true,
+        "macos": true,
+        "windows": true
+      },
+      "authors": []
+    }
+  ],
+  "tests": [
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "execution.headless",
+      "capability": "execution.headless",
+      "title": "Headless execution",
+      "version": "1.0.0",
+      "description": "Measures noninteractive completion of a deterministic file-writing task with stdin closed.",
+      "prompt": "Write exactly HEADLESS into result.txt in the current directory.",
+      "expected": {
+        "type": "file-content",
+        "value": "HEADLESS"
+      },
+      "tags": [
+        "execution"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "execution.structured-output",
+      "capability": "execution.structured-output",
+      "title": "Structured output",
+      "version": "1.0.0",
+      "description": "Measures whether the requested machine-readable response contains the expected token. Adapters extract only final response payloads from documented JSON envelopes.",
+      "prompt": "Respond with a JSON object containing only the property token with value STRUCTURED. Do not include prose or code fences.",
+      "expected": {
+        "type": "json-object",
+        "value": "STRUCTURED"
+      },
+      "tags": [
+        "execution"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "instructions.nested",
+      "capability": "instructions.nested",
+      "title": "Nested repository instructions",
+      "version": "1.0.0",
+      "description": "Determines whether instructions in a child directory apply to a task in that subtree.",
+      "prompt": "Read src/task.txt and follow the repository instructions applicable to that file. Complete the task there.",
+      "expected": {
+        "type": "file-content",
+        "value": "NESTED"
+      },
+      "tags": [
+        "instructions",
+        "repository"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "instructions.precedence",
+      "capability": "instructions.precedence",
+      "title": "Instruction precedence",
+      "version": "1.0.0",
+      "description": "Measures which instruction takes precedence when root and nested instructions conflict.",
+      "prompt": "Read src/task.txt and follow the instructions applicable to it. Complete the task in that directory.",
+      "expected": {
+        "type": "file-content",
+        "value": "NESTED"
+      },
+      "tags": [
+        "instructions",
+        "repository"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "instructions.root",
+      "capability": "instructions.root",
+      "title": "Root repository instructions",
+      "version": "1.0.0",
+      "description": "Measures discovery of the supported root instruction mechanism. Aider uses its repository read configuration.",
+      "prompt": "Read task.txt and follow the applicable repository instructions. Write the requested token to result.txt.",
+      "expected": {
+        "type": "file-content",
+        "value": "ROOT"
+      },
+      "tags": [
+        "instructions",
+        "repository"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "mcp.http",
+      "capability": "mcp.http",
+      "title": "MCP http",
+      "version": "1.0.0",
+      "description": "Measures actual invocation of a deterministic get_token MCP tool. A server-side receipt and matching output are both required. HTTP uses a loopback-only Streamable HTTP endpoint.",
+      "prompt": "Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.",
+      "expected": {
+        "type": "tool-call-and-file",
+        "value": "server-generated token"
+      },
+      "tags": [
+        "mcp",
+        "http"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "mcp.stdio",
+      "capability": "mcp.stdio",
+      "title": "MCP stdio",
+      "version": "1.0.0",
+      "description": "Measures actual invocation of a deterministic get_token MCP tool. A server-side receipt and matching output are both required. HTTP uses a loopback-only Streamable HTTP endpoint.",
+      "prompt": "Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.",
+      "expected": {
+        "type": "tool-call-and-file",
+        "value": "server-generated token"
+      },
+      "tags": [
+        "mcp",
+        "stdio"
+      ],
+      "authors": []
+    },
+    {
+      "schema": "harnessfacts.test/v1",
+      "id": "skills.discovery",
+      "capability": "skills.discovery",
+      "title": "Skill discovery",
+      "version": "1.0.0",
+      "description": "Measures discovery and use of a repository skill. The expected token exists only in its skill body.",
+      "prompt": "Use the hf-token skill to complete its token-writing task.",
+      "expected": {
+        "type": "file-content",
+        "value": "SKILL"
+      },
+      "tags": [
+        "extensibility",
+        "skills"
+      ],
+      "authors": []
+    }
+  ],
+  "capabilities": [
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "instructions.root",
+      "title": "Root instructions",
+      "category": "instructions",
+      "description": "Discovery of supported root repository instructions."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "instructions.nested",
+      "title": "Nested instructions",
+      "category": "instructions",
+      "description": "Application of instructions within a child directory."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "instructions.precedence",
+      "title": "Instruction precedence",
+      "category": "instructions",
+      "description": "Resolution of conflicting root and nested instructions."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "mcp.stdio",
+      "title": "MCP stdio",
+      "category": "mcp",
+      "description": "Tool invocation over MCP standard input/output."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "mcp.http",
+      "title": "MCP HTTP",
+      "category": "mcp",
+      "description": "Tool invocation over MCP Streamable HTTP."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "execution.headless",
+      "title": "Headless execution",
+      "category": "execution",
+      "description": "Task completion without interactive input."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "execution.exit-code",
+      "title": "Exit semantics",
+      "category": "execution",
+      "description": "Usable process status on successful and failed execution. Test deferred."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "execution.structured-output",
+      "title": "Structured output",
+      "category": "execution",
+      "description": "Machine-readable final response."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "skills.discovery",
+      "title": "Skill discovery",
+      "category": "extensibility",
+      "description": "Discovery and application of a repository skill."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "hooks.execution",
+      "title": "Hook execution",
+      "category": "extensibility",
+      "description": "Deterministic execution of supported hooks. Test deferred."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "git.worktree-awareness",
+      "title": "Git worktrees",
+      "category": "git",
+      "description": "Operation within a linked Git worktree. Test deferred."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "git.scope-boundary",
+      "title": "Repository boundary",
+      "category": "git",
+      "description": "Observed edits under the configured working directory. Not a security guarantee. Test deferred."
+    }
+  ],
+  "claims": [
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "aider",
+      "capability": "execution.headless",
+      "status": "documented",
+      "source": {
+        "url": "https://aider.chat/docs/config/options.html",
+        "title": "Aider options",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "claude-code",
+      "capability": "execution.headless",
+      "status": "documented",
+      "source": {
+        "url": "https://code.claude.com/docs/en/cli-reference",
+        "title": "Claude Code CLI reference",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "claude-code",
+      "capability": "execution.structured-output",
+      "status": "documented",
+      "source": {
+        "url": "https://code.claude.com/docs/en/cli-reference",
+        "title": "Claude Code CLI reference",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "codex",
+      "capability": "mcp.http",
+      "status": "documented",
+      "source": {
+        "url": "https://developers.openai.com/codex/mcp/",
+        "title": "Codex MCP",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "codex",
+      "capability": "mcp.stdio",
+      "status": "documented",
+      "source": {
+        "url": "https://developers.openai.com/codex/mcp/",
+        "title": "Codex MCP",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "gemini-cli",
+      "capability": "execution.headless",
+      "status": "documented",
+      "source": {
+        "url": "https://geminicli.com/docs/cli/headless/",
+        "title": "Gemini headless mode",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "opencode",
+      "capability": "execution.headless",
+      "status": "documented",
+      "source": {
+        "url": "https://opencode.ai/docs/cli/",
+        "title": "OpenCode CLI",
+        "accessedAt": "2026-09-08"
+      }
+    },
+    {
+      "schema": "harnessfacts.claim/v1",
+      "agent": "opencode",
+      "capability": "skills.discovery",
+      "status": "documented",
+      "source": {
+        "url": "https://opencode.ai/docs/skills/",
+        "title": "OpenCode skills",
+        "accessedAt": "2026-09-08"
+      }
+    }
+  ],
+  "results": [
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "85d01680-8922-4472-a543-42b1f737b2f7",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "execution.headless",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:57:57.111Z",
+        "durationMs": 53937.10773,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "57989e05918c755247270df06f47e9433cf74e75a400ac60eb9c3de8bc46e2b8",
+        "stderrSha256": "258158a790f32e10b4f0246424c12e57ac7607a120d2120244c2e269c82bcf72",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "9f8d0baa2c559598fa3179e46916d492086de89b31f26f69630a400144156fab"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "8b829b0b-2b56-43af-a69f-b8eb86a0d77e",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "execution.headless",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:57:59.172Z",
+        "durationMs": 120035.43420599999,
+        "exitCode": null
+      },
+      "result": {
+        "status": "error",
+        "summary": "Agent timed out or exceeded output limit"
+      },
+      "evidence": {
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "4aa8c02b7d74ec8dc22373b29293c2a0de3b74f9626d24b094c08433c2ae74c7",
+        "artifacts": []
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "8aeb861c-b6c1-473f-9d8c-9a3eb562a657",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "execution.structured-output",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:58:51.091Z",
+        "durationMs": 7868.8341569999975,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Structured response matched the expected object."
+      },
+      "evidence": {
+        "stdoutSha256": "9a78070dd2c0d93bd3599342946380f6455a45430c8d88181edf00a47def812b",
+        "stderrSha256": "12f12da988517b5164109ab5a6f947cc3c373c0790077b9299b775882716fe93",
+        "artifacts": [
+          {
+            "path": ".response.json",
+            "sha256": "7e8725c0690da4de4197201bfb77e804b5b3134f36ab452258d496326daee95e"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "d85fe32c-ca48-4bba-86e6-d34439f8b5fa",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "execution.structured-output",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:59:59.252Z",
+        "durationMs": 7905.132798999999,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Structured response matched the expected object."
+      },
+      "evidence": {
+        "stdoutSha256": "9a78070dd2c0d93bd3599342946380f6455a45430c8d88181edf00a47def812b",
+        "stderrSha256": "6fda645960b4a88c46a1eb587084bb9fe914ade52e04ece2b8794ddd736ac30e",
+        "artifacts": [
+          {
+            "path": ".response.json",
+            "sha256": "7e8725c0690da4de4197201bfb77e804b5b3134f36ab452258d496326daee95e"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "2d61cbc1-ea7d-4958-bc5c-86fcf3e50fc1",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.nested",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:07.194Z",
+        "durationMs": 27166.099675999998,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Nested instruction was applied."
+      },
+      "evidence": {
+        "stdoutSha256": "03b97e34217035ee65e3199f3939b780abd791608978e3f0b6fd626932896b08",
+        "stderrSha256": "71128dcad83797bdca9d22aafc01528d8b53670f4e650c0d70eb53f96795e72b",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "ba7bdd5f-201a-4135-9df8-c3f3256cd976",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.nested",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:45:25.722Z",
+        "durationMs": 30923.491447,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Nested instruction was applied."
+      },
+      "evidence": {
+        "stdoutSha256": "0b5242c2be70de7b86df2ed5cd5b36741248fdb3b6e27a4863d9af00face6a2a",
+        "stderrSha256": "4b7bb018c2ab625df17c4c74ed27ad6ba9364131e69dfa50eb8a485ae66b61b1",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "ed9ea9cc-43c0-4346-b3b5-c302a3cf964e",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.nested",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:58:58.995Z",
+        "durationMs": 24688.487316,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Nested instruction was applied."
+      },
+      "evidence": {
+        "stdoutSha256": "0da427934b904ec4a558ae97250c0132e673a9bf02d0f443d0c108287df4d2a1",
+        "stderrSha256": "0348f7af59ba6e44c4b623b472f3c1658277cd7e9788c494f700497e6288d937",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "2712bae7-35a8-4c2e-afc1-4938a3b3345c",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.precedence",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:59:23.722Z",
+        "durationMs": 25703.977587,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "fail",
+        "summary": "Expected token was not written."
+      },
+      "evidence": {
+        "stdoutSha256": "6dec98eddfe2a441c090470d7d4564b99cf87e5a7273e47651c6c3730dde9a4d",
+        "stderrSha256": "bb072eda59790da7a765dc14ae1db0c6e09b4abcd93670ceb902de1009751f23",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "fed4199357214dfb94724176c68a76698dbc3c2d36317a895320207ac910dea6"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "8fa1fdae-76b0-4a2d-bf63-9ff310aeb80c",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.precedence",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:34.396Z",
+        "durationMs": 33799.296277999994,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "fail",
+        "summary": "Expected token was not written."
+      },
+      "evidence": {
+        "stdoutSha256": "e50cc6f2bc9793d7ccd97b0bd5a1f6a14397cf94dcaead0bf79be43563224eca",
+        "stderrSha256": "f76c9ce0be99fa9d75433668b5e34a7c09dd0497dbd68b835c9653af0919fb87",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "fed4199357214dfb94724176c68a76698dbc3c2d36317a895320207ac910dea6"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "4b452c9f-170c-47f3-833f-6133bee24b99",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.root",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:59:49.460Z",
+        "durationMs": 24542.450045999998,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "a3d810f8231954d6d1eea65e4a6cfecad9519a156d837198a92a71fa13981fe9",
+        "stderrSha256": "608288c6fac34fb939cf805be993d3224a718f3df616fe3bfde6cf68e45f27f9",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "fed4199357214dfb94724176c68a76698dbc3c2d36317a895320207ac910dea6"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "afac7e33-2c2b-4012-8b5e-11fb9ad328ad",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "instructions.root",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:01:08.223Z",
+        "durationMs": 27094.82710699999,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "095350233c99e9abc8f697066fae83fa2c707c86359532246bfd0384ce788c38",
+        "stderrSha256": "a23626e0d8dbeb0f50c221f98b0b5d83988ede539ee712507a442daa93d0acb0",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "fed4199357214dfb94724176c68a76698dbc3c2d36317a895320207ac910dea6"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "d820fc4d-c058-41f4-9b3a-773e2da8ef45",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "mcp.http",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:14.049Z",
+        "durationMs": 22715.24213,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "fail",
+        "summary": "No matching tool receipt and output token."
+      },
+      "evidence": {
+        "stdoutSha256": "85b7be2aed83f442d916a0de03a8a9f675512fc2c93a599403bcec2fc66a820c",
+        "stderrSha256": "0ff592741729ccaf9c544acf2fdadd22ae1eeb2e25810449da302bb28905e831",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "f26215dd-6009-43ce-ac4d-a3fd20916256",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "mcp.http",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:01:35.359Z",
+        "durationMs": 25739.573909,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "MCP tool invocation and returned token verified."
+      },
+      "evidence": {
+        "stdoutSha256": "b4f1b57bed416684c3d5594458e5d54893213c4d995e3106fd13170c1b849ad8",
+        "stderrSha256": "a46a7890bce4c50d58a4d996eb2ba106d3445f41ab2b62547d4b3b05f0942858",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "dd8d9ddaf625444b536fcec1ab5d84d1c60713f8e0ce5666a09c6df580effc36"
+          },
+          {
+            "path": "result.txt",
+            "sha256": "f1ea1d26dba54b8f824cf37574dea20c97e56e685aed887f324066a9493fca67"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "42a40de0-647e-4eb1-8079-6a1375d0a631",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "mcp.stdio",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:55:08.918Z",
+        "durationMs": 62220.247647,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "fail",
+        "summary": "No matching tool receipt and output token."
+      },
+      "evidence": {
+        "stdoutSha256": "8525c295e72c92a5f700a9a4cab64da8fcf88beeba78a0782b2ea5d38a1f6e81",
+        "stderrSha256": "efe356717c2ae6356fabdb4d58aa8b013908cbebb26604d842a88054d2adf7cd",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "bc6edc36-0a41-4f72-89ae-dd38897eefbf",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "mcp.stdio",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:02:01.139Z",
+        "durationMs": 29826.683154000028,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "MCP tool invocation and returned token verified."
+      },
+      "evidence": {
+        "stdoutSha256": "e8bb736889fb6612dddff24c4a65de2c4e54ee3c8ca28fa47a625fd92a6647b1",
+        "stderrSha256": "abc21fe785b2f261472c21c8616d2c429bc4ce70043d69131fc48f5533655e9e",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "0861cca6b22c86bdca97fa8b557081da1c22a6f075d8b52a436302cd7ada05fd"
+          },
+          {
+            "path": "result.txt",
+            "sha256": "7b1f2516a7dfdfb60397b456de71d4a1d3316f8a4fc6da75bf16c0be36007e4f"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "ed73eefd-4474-4f2d-9be4-f7f4cace53a6",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "mcp.stdio",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:36.805Z",
+        "durationMs": 20034.21921899999,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "fail",
+        "summary": "No matching tool receipt and output token."
+      },
+      "evidence": {
+        "stdoutSha256": "87225fc32302dbabf8f186511448e0da37e56af2f882bb319432164da40af9c9",
+        "stderrSha256": "99496e7569e55b0f8cd4cc5986111b558fa0708c1ac9d2d3b56e78e6baa4987a",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "66f11f9d-a73e-41d1-8525-7feb6cdc0fdb",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "skills.discovery",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:02:31.017Z",
+        "durationMs": 21185.674161000003,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "399103da5f5bf6364e46aaca79b09c9ebb8e239067a33f2b92ec66fec4dcb0c6",
+        "stderrSha256": "8ebd65115c4034f450b64a325b1a20deeac6ad8570345c646663416f2bdff2e2",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "bf2c2ba27f18ad2feb566515d26e4278e0a7c2fe0b1ec4b07898b803e6d41646"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "bdb296e9-889d-4e14-b266-32908bdbfaf4",
+      "agent": {
+        "id": "codex",
+        "version": "0.153.4"
+      },
+      "test": {
+        "id": "skills.discovery",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:56.879Z",
+        "durationMs": 19837.49614100001,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "05760576ae5d0aa0dd1ee45e232d719101c8f6983a5e7df2122e9aea00449d3d",
+        "stderrSha256": "88606a849d4f756e1d9b723e7d913b247724f9e69868ba331cea1be5c3d34faf",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "bf2c2ba27f18ad2feb566515d26e4278e0a7c2fe0b1ec4b07898b803e6d41646"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "5c647edc-dc9b-4d87-bdab-e21646078c45",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "execution.headless",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:58:28.715Z",
+        "durationMs": 90049.526772,
+        "exitCode": null
+      },
+      "result": {
+        "status": "error",
+        "summary": "Agent timed out or exceeded output limit"
+      },
+      "evidence": {
+        "stdoutSha256": "87a2255898b7af22becd848380b294bb47e55a8fe9150c1f787f01353c6f3be4",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": []
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "d9da98dd-08fc-42fc-8b25-98d58f67a7b3",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "execution.headless",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:07:50.455Z",
+        "durationMs": 12189.67735,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "a9f591700d3f78c7dfe72e9075fbbc2a708e93065b7d6c1baed68e35de368806",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "97d0eb468f4f0eb2a15760026cf7abd463ac09c51324bf916d49b0a946a3bd8f"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "0d8d1b4c-3406-4587-9e0a-67a31cd87177",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "execution.structured-output",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:08:03.015Z",
+        "durationMs": 12289.814097,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Structured response matched the expected object."
+      },
+      "evidence": {
+        "stdoutSha256": "7274dc69adef2a9fc5baa76b2217c46b9d703b13a82ae261ac3934f4b261fc81",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": ".response.json",
+            "sha256": "7e8725c0690da4de4197201bfb77e804b5b3134f36ab452258d496326daee95e"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "72255a11-e1b8-4bb9-8e34-c3f1414d725e",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "execution.structured-output",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:59:59.205Z",
+        "durationMs": 8383.100848000002,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Structured response matched the expected object."
+      },
+      "evidence": {
+        "stdoutSha256": "0145c64adc5f44a434397e718b5ab786b66c718711b4ae2add7e9c85f50580cd",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": ".response.json",
+            "sha256": "7e8725c0690da4de4197201bfb77e804b5b3134f36ab452258d496326daee95e"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "962ac53e-50c8-4899-a882-50049093f6b1",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.nested",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:08.016Z",
+        "durationMs": 24307.956113000007,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Nested instruction was applied."
+      },
+      "evidence": {
+        "stdoutSha256": "7f344676e2245ec3844778e0f706ffa450458386550ad87bf9d008dd4d208350",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "a14778b9-f13f-4587-b8cc-18ef2b92e918",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.nested",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:08:15.722Z",
+        "durationMs": 7572.651045999995,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Nested instruction was applied."
+      },
+      "evidence": {
+        "stdoutSha256": "fac75617dea81d322c45024fc9ab81ed3dc317cd0ff7781b05527fcfd094d3e7",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "c7bfc18f-ded1-4d99-8ca9-6500e004cb24",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.nested",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T08:57:33.409Z",
+        "durationMs": 23572.183786999998,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Nested instruction was applied."
+      },
+      "evidence": {
+        "stdoutSha256": "b5dfacd05e1eb7a630875f929a4350950f510c1207abb5990022722841f819f3",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "df1b8aad-4172-4c3e-a6f6-52a78d2f19ff",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.precedence",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:08:23.650Z",
+        "durationMs": 9440.639538000003,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "3c0208235cb016e812d7b58639d7a92b344fc5438d2f5c478d4b44c7c7271936",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "edf4985f-2584-4991-abd1-21016be3da04",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.precedence",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:00:32.744Z",
+        "durationMs": 30040.441242999994,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "1984daa741f5f7a197df19b468bc3186c4808611887578555c81d78f37909c73",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "src/result.txt",
+            "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "3d0780aa-1227-4167-832a-95235864d964",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.root",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:01:03.190Z",
+        "durationMs": 24619.381895,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "286d3c862df81ced36f62da36e2565e40d7873c2b92a10ad4e463465907c71c1",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "fed4199357214dfb94724176c68a76698dbc3c2d36317a895320207ac910dea6"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "e99afda5-8530-4e6f-bc82-5f8c7ed3af3d",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "instructions.root",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:08:33.467Z",
+        "durationMs": 17556.438864000003,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "699a68dbac0f57efd4c7727630eff7c2fda0ba7904de770cde15ab42add4e205",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "fed4199357214dfb94724176c68a76698dbc3c2d36317a895320207ac910dea6"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "55275b8c-c4d1-4f2b-af73-314399a28abf",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "mcp.http",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:08:51.416Z",
+        "durationMs": 7740.245104000001,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "MCP tool invocation and returned token verified."
+      },
+      "evidence": {
+        "stdoutSha256": "681e96ac993605537b20f3534b0ebc0a8448be85fcb43286dacc735b307f8a8d",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "f731cfb6f48f65c1dc10292a43c5507a86a4831863ed1b5b900e4df169f26873"
+          },
+          {
+            "path": "result.txt",
+            "sha256": "4addfb2738dc1e96655e7cbb7f219e5cb10b21a7827d2dc4e70ffdccdfe5bbac"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "a47c6d76-14bd-4f01-9415-e67bc5aec8cd",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "mcp.http",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:01:28.422Z",
+        "durationMs": 25504.573411999998,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "MCP tool invocation and returned token verified."
+      },
+      "evidence": {
+        "stdoutSha256": "a8a4cc48cdcfefce771764e25f586bf3c7278d45a355fa30a3b43b103688130f",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "1ea321bbda58b542a454f05fb069382a327f7813f7df8b20c9e2adb8b0c65e31"
+          },
+          {
+            "path": "result.txt",
+            "sha256": "cd7fcf78e0a3459a253cb15d838230b2223b3f5f75feae44373e75cacd1e6a16"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "2373d83e-22e3-4f46-9906-cba5e75f89b2",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "mcp.stdio",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:01:54.298Z",
+        "durationMs": 7532.859223999985,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "MCP tool invocation and returned token verified."
+      },
+      "evidence": {
+        "stdoutSha256": "7f53935c93361c3aaa01682760352c1aa3b52c9a5f397ea02bb5ab68e1dff80e",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "48c991ab03e1dc49fd88ad004f725e0335e3a9b1f16e11f60e05a1c77bdc6d34"
+          },
+          {
+            "path": "result.txt",
+            "sha256": "fcd4f3dee8bbfa3c206c7921bc44d9d1ce10b193e60d65342d34450192f4a065"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "fe9ba17d-64e3-456b-b9f3-fcf0305d724a",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "mcp.stdio",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:08:59.510Z",
+        "durationMs": 12383.295112000007,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "MCP tool invocation and returned token verified."
+      },
+      "evidence": {
+        "stdoutSha256": "73ebd120b828d9820909e6d2f5bcc0d2a8917e03bc82fed6428cd493f50a3219",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "mcp-receipt.jsonl",
+            "sha256": "b272f23fa641458518186a04528f6bca18b3642fb2003221990d91dbc183a026"
+          },
+          {
+            "path": "result.txt",
+            "sha256": "ee4b53ce7c64f485aac85c2c36d9653bd1671995d7c26a02790d20f320f0b82f"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "1ecc29f4-53d7-429d-a123-343de81b7a58",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "skills.discovery",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:09:12.288Z",
+        "durationMs": 18701.354987,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "8d34e7744983c23dc07a144ea786969aacfd882f0184bac5e772f94bfad7584e",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "20238c978f1fd6122a1cb99dba433f9e5d5c67c1fff7c52cc3747acefede67b0"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    },
+    {
+      "schema": "harnessfacts.run/v1",
+      "runId": "5fecb98f-b119-4d55-88b7-bd1b0d32e5e8",
+      "agent": {
+        "id": "opencode",
+        "version": "1.18.29"
+      },
+      "test": {
+        "id": "skills.discovery",
+        "version": "1.0.0"
+      },
+      "environment": {
+        "schema": "harnessfacts.environment/v1",
+        "os": "linux",
+        "osVersion": "7.0.0-31-generic",
+        "arch": "x64",
+        "runtime": {
+          "bun": "1.3.10"
+        }
+      },
+      "execution": {
+        "startedAt": "2026-09-08T09:02:02.254Z",
+        "durationMs": 12620.68392499999,
+        "exitCode": 0
+      },
+      "result": {
+        "status": "pass",
+        "summary": "Expected token was written."
+      },
+      "evidence": {
+        "stdoutSha256": "bc6d42e44def4a02d26e278626cb91dcbcca070cc2d246381e92c9feafda2b8a",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts": [
+          {
+            "path": "result.txt",
+            "sha256": "bf2c2ba27f18ad2feb566515d26e4278e0a7c2fe0b1ec4b07898b803e6d41646"
+          }
+        ]
+      },
+      "provenance": {
+        "kind": "community"
+      }
+    }
+  ]
+}

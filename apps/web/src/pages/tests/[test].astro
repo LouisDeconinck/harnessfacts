@@ -1,0 +1,15 @@
+---
+import { results, sitePath, testSlug, tests } from "../../data";
+import sources from "../../fixtures.json";
+import Layout from "../../layouts/Layout.astro";
+export const getStaticPaths = () =>
+  tests.map((test) => ({
+    params: { test: testSlug(test.id) },
+    props: { test },
+  }));
+const { test } = Astro.props;
+const source = sources.tests.find((t) => t.id === test.id)!;
+const fixture = source.files;
+const observations = results.filter((r) => r.test.id === test.id);
+---
+<Layout title={test.title}><div class="eyebrow">{test.id} / v{test.version}</div><h1>{test.title}</h1><div class="prose"><p>{test.description}</p><h2>What counts as a pass?</h2><p>The evaluator checks <code>{test.expected.type}</code> against <code>{test.expected.value}</code>. Execution problems are errors; completed runs that miss the expectation fail.</p><h2>Run this test</h2><pre><code>harnessfacts run codex {test.id}</code></pre><h2>Exact prompt</h2><pre>{test.prompt}</pre><h2>Exact fixture</h2>{fixture.map(file => <details open><summary>{file.path}</summary><pre>{file.text}</pre></details>)}<p>Adapters map instruction and skill files to the product's native paths. <a href="https://github.com/LouisDeconinck/harnessfacts/tree/main/adapters">Inspect the adapters ↗</a></p><details><summary>Evaluator source</summary><pre>{source.evaluator}</pre></details></div><h2 class="section">All recorded runs</h2>{observations.length ? <div class="table-wrap"><table><thead><tr><th>Agent</th><th>Version</th><th>Environment</th><th>Result / evidence</th></tr></thead><tbody>{observations.map(run => <tr><td><a href={sitePath(`/agents/${run.agent.id}`)}>{run.agent.id}</a></td><td>{run.agent.version}</td><td>{run.environment.os} {run.environment.arch}</td><td><a class={`badge ${run.result.status}`} href={sitePath(`/runs/${run.runId}`)}>{run.result.status} →</a></td></tr>)}</tbody></table></div> : <p class="empty">Not yet tested. Missing data remains unknown.</p>}{test.authors.length > 0 && <p>Test contributed by {test.authors.map(a => <a href={`https://github.com/${a.github}`}>@{a.github} </a>)}</p>}</Layout>

@@ -1,0 +1,20 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-dBUElk/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0803d-159b-73d3-b728-76d02cbe3acc
+--------
+user
+Write exactly HEADLESS into result.txt in the current directory.
+codex
+I’ll write `HEADLESS` to `result.txt`.
+
+exec
+/bin/bash -lc 'printf %s HEADLESS > result.txt' in /tmp/harnessfacts-dBUElk/fixture
+ succeeded in 0ms:

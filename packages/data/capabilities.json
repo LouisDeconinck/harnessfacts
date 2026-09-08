@@ -1,0 +1,89 @@
+{
+  "schema": "harnessfacts.capabilities/v1",
+  "capabilities": [
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "instructions.root",
+      "title": "Root instructions",
+      "category": "instructions",
+      "description": "Discovery of supported root repository instructions."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "instructions.nested",
+      "title": "Nested instructions",
+      "category": "instructions",
+      "description": "Application of instructions within a child directory."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "instructions.precedence",
+      "title": "Instruction precedence",
+      "category": "instructions",
+      "description": "Resolution of conflicting root and nested instructions."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "mcp.stdio",
+      "title": "MCP stdio",
+      "category": "mcp",
+      "description": "Tool invocation over MCP standard input/output."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "mcp.http",
+      "title": "MCP HTTP",
+      "category": "mcp",
+      "description": "Tool invocation over MCP Streamable HTTP."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "execution.headless",
+      "title": "Headless execution",
+      "category": "execution",
+      "description": "Task completion without interactive input."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "execution.exit-code",
+      "title": "Exit semantics",
+      "category": "execution",
+      "description": "Usable process status on successful and failed execution. Test deferred."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "execution.structured-output",
+      "title": "Structured output",
+      "category": "execution",
+      "description": "Machine-readable final response."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "skills.discovery",
+      "title": "Skill discovery",
+      "category": "extensibility",
+      "description": "Discovery and application of a repository skill."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "hooks.execution",
+      "title": "Hook execution",
+      "category": "extensibility",
+      "description": "Deterministic execution of supported hooks. Test deferred."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "git.worktree-awareness",
+      "title": "Git worktrees",
+      "category": "git",
+      "description": "Operation within a linked Git worktree. Test deferred."
+    },
+    {
+      "schema": "harnessfacts.capability/v1",
+      "id": "git.scope-boundary",
+      "title": "Repository boundary",
+      "category": "git",
+      "description": "Observed edits under the configured working directory. Not a security guarantee. Test deferred."
+    }
+  ]
+}

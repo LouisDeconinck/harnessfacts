@@ -1,0 +1,18 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-ZtmWjV/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0803d-d85d-76f1-9ea4-3d1c4d29886c
+--------
+user
+Respond with a JSON object containing only the property token with value STRUCTURED. Do not include prose or code fences.
+codex
+{"token":"STRUCTURED"}
+tokens used
+14,914

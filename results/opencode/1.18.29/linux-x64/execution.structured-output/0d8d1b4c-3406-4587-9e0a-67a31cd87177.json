@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "0d8d1b4c-3406-4587-9e0a-67a31cd87177",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "execution.structured-output",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T09:08:03.015Z",
+    "durationMs": 12289.814097,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "Structured response matched the expected object."
+  },
+  "evidence": {
+    "stdoutSha256": "7274dc69adef2a9fc5baa76b2217c46b9d703b13a82ae261ac3934f4b261fc81",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": ".response.json",
+        "sha256": "7e8725c0690da4de4197201bfb77e804b5b3134f36ab452258d496326daee95e"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

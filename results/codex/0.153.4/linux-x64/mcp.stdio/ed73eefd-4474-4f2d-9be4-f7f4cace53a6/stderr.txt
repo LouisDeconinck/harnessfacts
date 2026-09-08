@@ -1,0 +1,24 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-EZiEHY/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0803f-74a0-7632-a5ad-d4f9f3807cb0
+--------
+user
+Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.
+codex
+I’ll look for the harnessfacts `get_token` tool, then save its returned token to `result.txt`.
+
+mcp: harnessfacts/get_token started
+mcp: harnessfacts/get_token (failed)
+MCP tool call requires approval, but approval policy is never
+codex
+The `get_token` call was blocked because it requires approval, but this session’s approval policy is `never`. No token was returned, so I couldn’t write `result.txt`.
+tokens used
+13,146

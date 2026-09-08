@@ -1,0 +1,17 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "mcp.stdio",
+  "capability": "mcp.stdio",
+  "title": "MCP stdio",
+  "version": "1.0.0",
+  "description": "Measures actual invocation of a deterministic get_token MCP tool. A server-side receipt and matching output are both required. HTTP uses a loopback-only Streamable HTTP endpoint.",
+  "prompt": "Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.",
+  "expected": {
+    "type": "tool-call-and-file",
+    "value": "server-generated token"
+  },
+  "tags": [
+    "mcp",
+    "stdio"
+  ]
+}

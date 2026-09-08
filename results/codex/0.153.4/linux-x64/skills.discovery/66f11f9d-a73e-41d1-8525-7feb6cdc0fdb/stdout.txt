@@ -1,0 +1,1 @@
+Wrote exactly `SKILL` to [result.txt](/tmp/harnessfacts-iczzBJ/fixture/result.txt).

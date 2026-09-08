@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "a14778b9-f13f-4587-b8cc-18ef2b92e918",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "instructions.nested",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T09:08:15.722Z",
+    "durationMs": 7572.651045999995,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "Nested instruction was applied."
+  },
+  "evidence": {
+    "stdoutSha256": "fac75617dea81d322c45024fc9ab81ed3dc317cd0ff7781b05527fcfd094d3e7",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "src/result.txt",
+        "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

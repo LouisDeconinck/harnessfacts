@@ -1,0 +1,5 @@
+---
+import { agents, getAgent, sitePath } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+---
+<Layout title="Agents"><div class="eyebrow">The adapter registry</div><h1>Meet the agents.</h1><p class="muted">Adapters describe how to run a product. Results record what happened.</p><div class="cards">{agents.map(agent => <a class="card" href={sitePath(`/agents/${agent.id}`)}><span class="num">{agent.vendor}</span><h2>{agent.name}</h2><p>{getAgent(agent.id)!.history.length} recorded runs · {agent.invocation.kind} adapter</p>Inspect capabilities →</a>)}</div></Layout>

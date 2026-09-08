@@ -1,0 +1,93 @@
+{
+  "schema": "harnessfacts.labels/v1",
+  "labels": [
+    {
+      "name": "good first issue",
+      "color": "174f3b"
+    },
+    {
+      "name": "help wanted",
+      "color": "174f3b"
+    },
+    {
+      "name": "adapter",
+      "color": "174f3b"
+    },
+    {
+      "name": "test",
+      "color": "174f3b"
+    },
+    {
+      "name": "documentation",
+      "color": "174f3b"
+    },
+    {
+      "name": "website",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:claude-code",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:codex",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:gemini-cli",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:opencode",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:aider",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:cline",
+      "color": "174f3b"
+    },
+    {
+      "name": "agent:roo-code",
+      "color": "174f3b"
+    },
+    {
+      "name": "capability:instructions",
+      "color": "174f3b"
+    },
+    {
+      "name": "capability:mcp",
+      "color": "174f3b"
+    },
+    {
+      "name": "capability:skills",
+      "color": "174f3b"
+    },
+    {
+      "name": "capability:execution",
+      "color": "174f3b"
+    },
+    {
+      "name": "capability:git",
+      "color": "174f3b"
+    },
+    {
+      "name": "capability:hooks",
+      "color": "174f3b"
+    },
+    {
+      "name": "platform:linux",
+      "color": "174f3b"
+    },
+    {
+      "name": "platform:windows",
+      "color": "174f3b"
+    },
+    {
+      "name": "platform:macos",
+      "color": "174f3b"
+    }
+  ]
+}

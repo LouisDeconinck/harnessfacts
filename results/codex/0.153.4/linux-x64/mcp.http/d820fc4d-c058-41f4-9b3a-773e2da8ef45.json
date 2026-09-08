@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "d820fc4d-c058-41f4-9b3a-773e2da8ef45",
+  "agent": {
+    "id": "codex",
+    "version": "0.153.4"
+  },
+  "test": {
+    "id": "mcp.http",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T09:00:14.049Z",
+    "durationMs": 22715.24213,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "fail",
+    "summary": "No matching tool receipt and output token."
+  },
+  "evidence": {
+    "stdoutSha256": "85b7be2aed83f442d916a0de03a8a9f675512fc2c93a599403bcec2fc66a820c",
+    "stderrSha256": "0ff592741729ccaf9c544acf2fdadd22ae1eeb2e25810449da302bb28905e831",
+    "artifacts": [
+      {
+        "path": "mcp-receipt.jsonl",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

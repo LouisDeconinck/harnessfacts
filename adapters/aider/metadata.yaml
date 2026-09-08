@@ -1,0 +1,12 @@
+schema: harnessfacts.agent/v1
+id: aider
+name: Aider
+vendor: Aider contributors
+website: https://aider.chat/docs/config/options.html
+documentation: https://aider.chat/docs/config/options.html
+invocation:
+  kind: cli
+platforms:
+  linux: true
+  macos: true
+  windows: true

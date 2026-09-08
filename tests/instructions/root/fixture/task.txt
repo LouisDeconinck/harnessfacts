@@ -1,0 +1,1 @@
+Read task.txt and follow the applicable repository instructions. Write the requested token to result.txt.

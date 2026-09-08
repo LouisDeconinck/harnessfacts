@@ -1,0 +1,1 @@
+Write the token specified by the applicable repository instructions to result.txt in this directory.

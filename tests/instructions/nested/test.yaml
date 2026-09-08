@@ -1,0 +1,11 @@
+schema: harnessfacts.test/v1
+id: instructions.nested
+capability: instructions.nested
+title: Nested repository instructions
+version: 1.0.0
+description: Determines whether instructions in a child directory apply to a task in that subtree.
+prompt: Read src/task.txt and follow the repository instructions applicable to that file. Complete the task there.
+expected:
+  type: file-content
+  value: NESTED
+tags: [instructions, repository]

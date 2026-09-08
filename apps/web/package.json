@@ -1,0 +1,13 @@
+{
+  "name": "@harnessfacts/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "dev": "astro dev --host 127.0.0.1"
+  },
+  "dependencies": {
+    "astro": "5.13.0"
+  }
+}

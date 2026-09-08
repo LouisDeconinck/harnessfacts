@@ -1,0 +1,12 @@
+schema: harnessfacts.agent/v1
+id: codex
+name: OpenAI Codex
+vendor: OpenAI
+website: https://developers.openai.com/codex/
+documentation: https://developers.openai.com/codex/cli/reference/
+invocation:
+  kind: cli
+platforms:
+  linux: true
+  macos: true
+  windows: true

@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "edf4985f-2584-4991-abd1-21016be3da04",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "instructions.precedence",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T09:00:32.744Z",
+    "durationMs": 30040.441242999994,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "Expected token was written."
+  },
+  "evidence": {
+    "stdoutSha256": "1984daa741f5f7a197df19b468bc3186c4808611887578555c81d78f37909c73",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "src/result.txt",
+        "sha256": "a5b612c96f272ac9ba5651c3326c6f74ec8212df0cf956c553a5ce9909594edf"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

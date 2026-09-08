@@ -1,0 +1,12 @@
+schema: harnessfacts.agent/v1
+id: opencode
+name: OpenCode
+vendor: Anomaly
+website: https://opencode.ai/docs/cli/
+documentation: https://opencode.ai/docs/cli/
+invocation:
+  kind: cli
+platforms:
+  linux: true
+  macos: true
+  windows: true

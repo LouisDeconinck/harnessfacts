@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "1ecc29f4-53d7-429d-a123-343de81b7a58",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "skills.discovery",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T09:09:12.288Z",
+    "durationMs": 18701.354987,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "Expected token was written."
+  },
+  "evidence": {
+    "stdoutSha256": "8d34e7744983c23dc07a144ea786969aacfd882f0184bac5e772f94bfad7584e",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "result.txt",
+        "sha256": "20238c978f1fd6122a1cb99dba433f9e5d5c67c1fff7c52cc3747acefede67b0"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

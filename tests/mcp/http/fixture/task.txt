@@ -1,0 +1,1 @@
+Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.

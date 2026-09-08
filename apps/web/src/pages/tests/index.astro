@@ -1,0 +1,5 @@
+---
+import { capabilities, sitePath, testSlug, tests } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+---
+<Layout title="Tests"><div class="eyebrow">The conformance suite</div><h1>One behavior.<br />One tiny test.</h1><p class="muted">Inspect the fixture and evaluator. Run it again in your environment.</p><div class="cards">{capabilities.map(capability => { const test = tests.find(t => t.capability === capability.id); return <article class="card" id={capability.id}><span class="num">{capability.category}</span><h3>{capability.title}</h3><p>{capability.description}</p>{test ? <a href={sitePath(`/tests/${testSlug(test.id)}`)}>Inspect test · v{test.version} →</a> : <span class="badge">TEST DEFERRED · UNKNOWN</span>}</article>; })}</div></Layout>

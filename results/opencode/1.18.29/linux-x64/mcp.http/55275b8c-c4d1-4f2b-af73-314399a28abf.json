@@ -1,0 +1,47 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "55275b8c-c4d1-4f2b-af73-314399a28abf",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "mcp.http",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T09:08:51.416Z",
+    "durationMs": 7740.245104000001,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "MCP tool invocation and returned token verified."
+  },
+  "evidence": {
+    "stdoutSha256": "681e96ac993605537b20f3534b0ebc0a8448be85fcb43286dacc735b307f8a8d",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "mcp-receipt.jsonl",
+        "sha256": "f731cfb6f48f65c1dc10292a43c5507a86a4831863ed1b5b900e4df169f26873"
+      },
+      {
+        "path": "result.txt",
+        "sha256": "4addfb2738dc1e96655e7cbb7f219e5cb10b21a7827d2dc4e70ffdccdfe5bbac"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

@@ -1,0 +1,12 @@
+schema: harnessfacts.agent/v1
+id: claude-code
+name: Claude Code
+vendor: Anthropic
+website: https://code.claude.com/docs/en/cli-reference
+documentation: https://code.claude.com/docs/en/cli-reference
+invocation:
+  kind: cli
+platforms:
+  linux: true
+  macos: true
+  windows: true
