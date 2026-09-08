@@ -1,0 +1,11 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "execution.exit-failure",
+  "capability": "execution.exit-code",
+  "title": "Reached task failure exit",
+  "version": "1.0.0",
+  "description": "Measures whether a deterministic reached task failure is communicated through a non-zero process exit code.",
+  "prompt": "Run `sh fail-task.sh` as the final action for this task. The script intentionally writes EXIT_FAILURE_REACHED and exits with a non-zero status. Do not recover from or hide that failure; the harness is measuring whether it reaches the CLI.",
+  "expected": { "type": "exit-code", "value": "non-zero" },
+  "tags": ["execution"]
+}

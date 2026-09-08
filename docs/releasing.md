@@ -21,4 +21,4 @@ The data package is dependency-free ESM JavaScript with TypeScript declarations 
 
 ## Community setup
 
-Project labels from `.github/labels.json` and all 16 [contribution issues](launch-issues.md) are published. Issue templates, a pull request template, contribution guidance, Apache-2.0 licensing, and private vulnerability reporting are enabled. OAuth tests, scheduled agent runners, and signed attestations remain deferred.
+Project labels from `.github/labels.json` and all 18 [contribution issues](launch-issues.md) are published. Issue templates, a pull request template, contribution guidance, Apache-2.0 licensing, and private vulnerability reporting are enabled. OAuth tests, scheduled agent runners, and signed attestations remain deferred.

@@ -1,0 +1,51 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "af6fedc3-1512-40f5-9a31-e713f5c84468",
+  "agent": {
+    "id": "antigravity-cli",
+    "version": "1.1.27"
+  },
+  "test": {
+    "id": "git.worktree-awareness",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T10:44:46.840Z",
+    "durationMs": 43742.17161500003,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "The requested file was written in the linked worktree."
+  },
+  "evidence": {
+    "stdoutSha256": "031c3c4a3d72b5511ce550f0aa3201fc91c521f6ba05f25e0a20426d9ea592c3",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "primary-result.txt",
+        "sha256": "9be031115d68e134f489fcd383a4aec068b21bc02fdaa5c031f8c3c3c1010901"
+      },
+      {
+        "path": "worktree-root.txt",
+        "sha256": "8993ee2ec0eabccc4bf716f5830527c02e1df910c914852797ad0aa36401e9ef"
+      },
+      {
+        "path": "result.txt",
+        "sha256": "33e82107c608a867d0edfafb17315e0dc9643dbb9186ae9f718ff967c121c70f"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

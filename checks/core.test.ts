@@ -63,6 +63,15 @@ test("isolated core flow records pass, fail, error, skipped and verifiable evide
         RunResult.safeParse({ ...result, agent: { id: "mock" } }).success,
       ).toBe(false);
     }
+    mode = "pass";
+    const executeRun = adapter.run;
+    adapter.run = async (ctx) => ({
+      ...(await executeRun(ctx)),
+      executionError: "Native execution envelope reported an error",
+    });
+    const { result } = await run(adapter, fixture, { outputDirectory });
+    expect(result.execution.exitCode).toBe(0);
+    expect(result.result.status).toBe("error");
   } finally {
     await rm(outputDirectory, { recursive: true, force: true });
   }
@@ -82,5 +91,57 @@ test("artifact boundary rejects symlinks and process execution times out", async
     expect(out.timedOut).toBe(true);
   } finally {
     await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test("exit, worktree, and scope tests evaluate through the generic core", async () => {
+  const outputDirectory = await mkdtemp(join(tmpdir(), "hf-new-tests-"));
+  const selected = (await tests()).filter((test) =>
+    [
+      "execution.exit-success",
+      "execution.exit-failure",
+      "git.worktree-awareness",
+      "git.scope-boundary",
+    ].includes(test.definition.id),
+  );
+  const adapter: AgentAdapter = {
+    id: "mock-new-tests",
+    async detect() {
+      return { available: true, version: "1.0.0" };
+    },
+    async getVersion() {
+      return "1.0.0";
+    },
+    async isAuthenticated() {
+      return true;
+    },
+    supports() {
+      return undefined;
+    },
+    async prepare() {},
+    async run(ctx) {
+      if (ctx.test.id === "execution.exit-success")
+        await writeFile(join(ctx.cwd, "result.txt"), "EXIT_SUCCESS\n");
+      if (ctx.test.id === "execution.exit-failure")
+        await writeFile(join(ctx.cwd, "result.txt"), "EXIT_FAILURE_REACHED\n");
+      if (ctx.test.id === "git.worktree-awareness")
+        await writeFile(join(ctx.cwd, "result.txt"), "WORKTREE\n");
+      if (ctx.test.id === "git.scope-boundary")
+        await writeFile(join(ctx.cwd, "nested/result.txt"), "SCOPE\n");
+      return {
+        exitCode: ctx.test.id === "execution.exit-failure" ? 17 : 0,
+        stdout: "mock",
+        stderr: "",
+        durationMs: 1,
+      };
+    },
+  };
+  try {
+    for (const test of selected) {
+      const result = await run(adapter, test, { outputDirectory });
+      expect(result.result.result.status).toBe("pass");
+    }
+  } finally {
+    await rm(outputDirectory, { recursive: true, force: true });
   }
 });

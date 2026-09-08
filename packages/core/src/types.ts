@@ -10,6 +10,7 @@ export interface AgentRunOutput {
   stderr: string;
   durationMs: number;
   timedOut?: boolean;
+  executionError?: string;
 }
 export interface AdapterPrepareContext {
   cwd: string;
@@ -47,5 +48,5 @@ export interface ConformanceTest {
   directory: string;
   evaluate(
     context: EvaluationContext,
-  ): Promise<{ pass: boolean; summary: string }>;
+  ): Promise<{ pass: boolean; summary: string; error?: boolean }>;
 }

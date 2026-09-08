@@ -1,0 +1,23 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-mbmmSm/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a08089-2233-7a63-833a-1fd1475cc324
+--------
+user
+Write exactly WORKTREE into result.txt in the current directory.
+codex
+I’ll write `WORKTREE` into `result.txt`.
+exec
+/bin/bash -lc 'printf %s WORKTREE > result.txt' in /tmp/harnessfacts-mbmmSm/fixture
+ succeeded in 0ms:
+codex
+Wrote exactly `WORKTREE` into `result.txt`.
+tokens used
+3,518

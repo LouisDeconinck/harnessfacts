@@ -1,0 +1,1 @@
+`sh fail-task.sh` exited with status 17. The failure was left unchanged.

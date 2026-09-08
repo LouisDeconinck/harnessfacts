@@ -1,0 +1,24 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-ERsnN7/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a08088-0e5a-7a03-9ede-0c460f4cdefd
+--------
+user
+Write exactly EXIT_SUCCESS into result.txt in the current directory, then finish the task successfully.
+codex
+I’ll write `EXIT_SUCCESS` to `result.txt`.
+
+exec
+/bin/bash -lc 'printf %s EXIT_SUCCESS > result.txt' in /tmp/harnessfacts-ERsnN7/fixture
+ succeeded in 0ms:
+codex
+Wrote exactly `EXIT_SUCCESS` to `result.txt`.
+tokens used
+15,196

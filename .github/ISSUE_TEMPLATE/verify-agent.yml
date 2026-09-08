@@ -1,0 +1,28 @@
+name: Verify an agent or platform
+description: Add real evidence for an existing adapter on a new agent version or OS.
+title: "Verify [agent] on [platform]"
+labels: [help wanted]
+body:
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and exact version
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: OS, version, and architecture
+    validations:
+      required: true
+  - type: input
+    id: auth
+    attributes:
+      label: Authentication method (no secret)
+  - type: textarea
+    id: capabilities
+    attributes:
+      label: Capabilities tested
+      description: Include the exact command and result/evidence paths.
+    validations:
+      required: true

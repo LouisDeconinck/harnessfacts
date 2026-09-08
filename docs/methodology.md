@@ -17,6 +17,8 @@ The recorded execution matched a small exact expectation: for example, a token w
 
 PASS does not establish universal or future-version support, security, intelligence, quality, reliability, or platform portability. A successful scope-boundary test would not be a security guarantee.
 
+The executable suite currently groups tests into instructions, skills, MCP, execution, and Git behavior. Exit-code tests use one successful task and one deterministic failure script: an unreached failure is an execution error, a reached failure with exit code zero fails, and a reached failure with a non-zero exit passes. Worktree and scope tests use disposable Git fixtures and report observed file behavior without making security claims. Hooks remain unknown until a supported agent exposes a deterministic noninteractive lifecycle configuration.
+
 ## Versions and environments
 
 Every result records exact agent and test versions, OS and OS version, architecture, Bun version, timestamp, duration, process exit status, and provenance. Agent logs describe the selected model where the CLI supplies it. Models may change with an agent's defaults; results are observations of that complete setup, not controlled model comparisons.

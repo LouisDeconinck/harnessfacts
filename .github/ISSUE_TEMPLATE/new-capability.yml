@@ -1,0 +1,22 @@
+name: Propose a deterministic capability test
+description: Suggest one objective compatibility question and evaluator.
+title: "Add capability: [name]"
+labels: [test]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Real developer question
+    validations:
+      required: true
+  - type: textarea
+    id: expectation
+    attributes:
+      label: Deterministic expected behavior
+      description: Describe the fixture, exact output, and what counts as pass, fail, error, or unknown.
+    validations:
+      required: true
+  - type: textarea
+    id: products
+    attributes:
+      label: Products believed to expose this behavior

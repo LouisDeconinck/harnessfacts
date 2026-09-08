@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "7f9d61a4-a31f-4ca6-ac5f-c599cf0d1551",
+  "agent": {
+    "id": "antigravity-cli",
+    "version": "1.1.27"
+  },
+  "test": {
+    "id": "instructions.precedence",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T10:46:20.929Z",
+    "durationMs": 66296.31682900002,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "error",
+    "summary": "Antigravity reported ERROR: the stream was interrupted despite process exit 0. Classification corrected from captured stdout; evidence bytes are unchanged."
+  },
+  "evidence": {
+    "stdoutSha256": "899821c15c35ddfb2289e5651b6356e4e715e398857ec7003657c46392dfb151",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "src/result.txt",
+        "sha256": "8c33d3391cebeed667652e07ce304a73d52d3a9d0df891bfe207e616151ea75f"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

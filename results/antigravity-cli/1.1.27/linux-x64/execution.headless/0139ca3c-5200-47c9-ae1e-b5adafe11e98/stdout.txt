@@ -1,0 +1,1 @@
+{"conversation_id":"eee3c715-dbc5-4fcd-a21e-fb9a104bd7c5","status":"SUCCESS","response":"I have written `HEADLESS` into [result.txt](file:///tmp/harnessfacts-tONZDi/fixture/result.txt).\n","duration_seconds":45.272543925,"num_turns":1,"usage":{"input_tokens":96460,"output_tokens":4622,"thinking_tokens":3320,"cache_read_tokens":304396,"total_tokens":101082}}

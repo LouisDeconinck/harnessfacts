@@ -1,0 +1,1 @@
+Wrote exactly `SCOPE` to `nested/result.txt`, with no trailing newline. No other files were modified.

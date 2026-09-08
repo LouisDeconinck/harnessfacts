@@ -1,0 +1,26 @@
+name: HarnessFacts compatibility check
+description: Assert that HarnessFacts has current observed compatibility evidence.
+inputs:
+  agent:
+    description: Agent ID, for example codex.
+    required: true
+  platform:
+    description: Optional platform filter: linux, macos, or windows.
+    required: false
+  require:
+    description: Newline-separated capability IDs.
+    required: true
+  ref:
+    description: HarnessFacts Git ref containing the data snapshot.
+    required: false
+    default: main
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        HARNESSFACTS_AGENT: ${{ inputs.agent }}
+        HARNESSFACTS_PLATFORM: ${{ inputs.platform }}
+        HARNESSFACTS_REQUIRE: ${{ inputs.require }}
+        HARNESSFACTS_REF: ${{ inputs.ref }}
+      run: node "$GITHUB_ACTION_PATH/action.mjs"

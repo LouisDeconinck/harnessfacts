@@ -1,10 +1,10 @@
 # Contribution issues
 
-These issues are published in [the public issue tracker](https://github.com/LouisDeconinck/harnessfacts/issues). Each covers a substantive gap and has relevant project labels. Platform verification tasks are marked good first issue.
+These issues are published in [the public issue tracker](https://github.com/LouisDeconinck/harnessfacts/issues). Each covers a substantive gap and has relevant project labels. Complex adapter and test work should not be labeled good first issue.
 
 ## [1. Verify Claude Code on Linux](https://github.com/LouisDeconinck/harnessfacts/issues/1)
 
-Run all eight tests with a current authenticated CLI; attach unmodified results and redacted evidence; correct any documented flag drift.
+Run all twelve tests with a current authenticated CLI; attach unmodified results and redacted evidence; correct any documented flag drift.
 
 ## [2. Verify Gemini CLI on Linux](https://github.com/LouisDeconinck/harnessfacts/issues/2)
 
@@ -36,7 +36,7 @@ Run nested, root, precedence, and headless tests; record exact Windows and CLI v
 
 ## [9. Verify Codex on macOS](https://github.com/LouisDeconinck/harnessfacts/issues/9)
 
-Run the eight priority tests and include complete evidence bundles.
+Run the twelve priority tests and include complete evidence bundles.
 
 ## [10. Verify OpenCode on Windows](https://github.com/LouisDeconinck/harnessfacts/issues/10)
 
@@ -65,3 +65,11 @@ Use benign bounded file edits and temporary sentinels; describe observed behavio
 ## [16. Add Windows process-tree cleanup](https://github.com/LouisDeconinck/harnessfacts/issues/16)
 
 Use Job Objects or an equally contained mechanism; verify descendants terminate after a timeout without paid credentials.
+
+## [17. Add compatibility GitHub Action](https://github.com/LouisDeconinck/harnessfacts/issues/17)
+
+Improve the compatibility-data assertion action, including ref pinning, useful annotations, and tests for PASS, FAIL, and UNKNOWN.
+
+## [18. Add package consumption example](https://github.com/LouisDeconinck/harnessfacts/issues/18)
+
+Demonstrate querying `@harnessfacts/data` from a clean external project without importing repository source files.

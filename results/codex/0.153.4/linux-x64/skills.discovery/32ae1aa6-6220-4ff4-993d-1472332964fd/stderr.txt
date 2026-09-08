@@ -1,0 +1,32 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-y9OGKv/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0808b-6f81-7120-b745-de0c9d0626b3
+--------
+user
+Use the hf-token skill to complete its token-writing task.
+codex
+I’ll read the hf-token skill and follow its token-writing instructions.
+exec
+/bin/bash -lc 'cat .agents/skills/hf-token/SKILL.md' in /tmp/harnessfacts-y9OGKv/fixture
+ succeeded in 0ms:
+---
+name: hf-token
+description: Use this skill for the HarnessFacts token-writing task.
+---
+Write exactly SKILL into result.txt in the current repository.
+
+exec
+/bin/bash -lc 'printf %s SKILL > result.txt' in /tmp/harnessfacts-y9OGKv/fixture
+ succeeded in 0ms:
+codex
+Wrote exactly `SKILL` into [result.txt](/tmp/harnessfacts-y9OGKv/fixture/result.txt).
+tokens used
+18,737

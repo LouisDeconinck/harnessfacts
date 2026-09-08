@@ -1,0 +1,1 @@
+Wrote the returned token exactly to [result.txt](/tmp/harnessfacts-ZLSdxc/fixture/result.txt), with no trailing newline.

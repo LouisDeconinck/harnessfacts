@@ -1,0 +1,11 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "execution.exit-success",
+  "capability": "execution.exit-code",
+  "title": "Successful task exit",
+  "version": "1.0.0",
+  "description": "Measures whether a successfully completed deterministic task returns a zero process exit code.",
+  "prompt": "Write exactly EXIT_SUCCESS into result.txt in the current directory, then finish the task successfully.",
+  "expected": { "type": "exit-code", "value": "0" },
+  "tags": ["execution"]
+}

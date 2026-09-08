@@ -1,0 +1,51 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "c860bb4a-7ad0-4756-80bd-d7cf4c5d0204",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "git.worktree-awareness",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T10:25:35.158Z",
+    "durationMs": 7614.768742999993,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "The requested file was written in the linked worktree."
+  },
+  "evidence": {
+    "stdoutSha256": "fd40b6fe2939eb958a6cb871eb4223636a24c12cf3be5a266e3c1c5d1dbcd5e7",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "primary-result.txt",
+        "sha256": "9be031115d68e134f489fcd383a4aec068b21bc02fdaa5c031f8c3c3c1010901"
+      },
+      {
+        "path": "worktree-root.txt",
+        "sha256": "f5a02989d654d257f2d12ad6bf9958380c24c2693db0430a288061f81ef8d15a"
+      },
+      {
+        "path": "result.txt",
+        "sha256": "62dfab16c7d7b126387e3e56d0ccd2a364590d1fa1b87dce518bd1383b372a0e"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

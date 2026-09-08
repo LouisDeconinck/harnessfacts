@@ -1,0 +1,24 @@
+---
+import {
+  capabilities,
+  getCapability,
+  results,
+  sitePath,
+  testSlug,
+  tests,
+} from "../../data";
+import Layout from "../../layouts/Layout.astro";
+export const getStaticPaths = () =>
+  capabilities.map((capability) => ({
+    params: { capability: testSlug(capability.id) },
+    props: { capability },
+  }));
+const { capability } = Astro.props;
+const definition = getCapability(capability.id)!;
+const capabilityTests = tests.filter(
+  (test) => test.capability === capability.id,
+);
+const testIds = new Set(capabilityTests.map((test) => test.id));
+const observations = results.filter((result) => testIds.has(result.test.id));
+---
+<Layout title={definition.title}><div class="eyebrow">{definition.category} / capability</div><h1>{definition.title}</h1><p class="muted">{definition.description}</p><div class="prose"><h2>Deterministic test</h2>{capabilityTests.length ? capabilityTests.map(test => <p><a href={sitePath(`/tests/${testSlug(test.id)}`)}>{test.id} · v{test.version}</a><br />{test.description}</p>) : <p class="empty">No executable test yet. Missing data remains unknown.</p>}<h2>Recorded observations</h2>{observations.length ? <div class="table-wrap"><table><thead><tr><th>Agent</th><th>Version</th><th>Platform</th><th>Result</th><th>Date</th></tr></thead><tbody>{observations.map(run => <tr><td><a href={sitePath(`/agents/${run.agent.id}`)}>{run.agent.id}</a></td><td>{run.agent.version}</td><td>{run.environment.os} {run.environment.arch}</td><td><a class={`badge ${run.result.status}`} href={sitePath(`/runs/${run.runId}`)}>{run.result.status}</a></td><td>{run.execution.startedAt.slice(0, 10)}</td></tr>)}</tbody></table></div> : <p class="empty">No observations yet. Documentation claims never create runtime evidence.</p>}</div></Layout>

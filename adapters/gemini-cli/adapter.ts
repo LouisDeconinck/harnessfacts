@@ -43,7 +43,7 @@ export const adapter: AgentAdapter = {
         "--prompt",
         ctx.test.prompt,
         "--approval-mode",
-        "auto_edit",
+        "yolo",
         ...(structured ? ["--output-format", "json"] : []),
       ],
       ctx.cwd,

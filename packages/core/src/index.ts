@@ -122,11 +122,18 @@ export async function run(
       Object.assign(context, { mcp: setup?.mcp });
       await adapter.prepare(context);
       output = await adapter.run(context);
-      if (output.timedOut || output.exitCode !== 0) {
+      const evaluatesExitCode = test.definition.expected.type === "exit-code";
+      if (
+        output.executionError ||
+        output.timedOut ||
+        (output.exitCode !== 0 && !evaluatesExitCode)
+      ) {
         status = "error";
-        summary = output.timedOut
-          ? "Agent timed out or exceeded output limit"
-          : `Agent exited with ${output.exitCode}`;
+        summary =
+          output.executionError ||
+          (output.timedOut
+            ? "Agent timed out or exceeded output limit"
+            : `Agent exited with ${output.exitCode}`);
       } else {
         for (const [name, content] of Object.entries(
           (await setup?.evidence?.()) || {},
@@ -142,7 +149,7 @@ export async function run(
             return value;
           },
         });
-        status = evaluation.pass ? "pass" : "fail";
+        status = evaluation.error ? "error" : evaluation.pass ? "pass" : "fail";
         summary = evaluation.summary;
       }
     }

@@ -1,0 +1,1 @@
+Wrote exactly `ROOT` to `result.txt`.

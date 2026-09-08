@@ -6,6 +6,8 @@ The YAML uses `schema: harnessfacts.test/v1`, id, capability, title, version, de
 
 Optional `setup(base)` may start a local protocol fixture and return configuration, harness-side evidence, and dispose(). Keep service state outside the agent working directory. Always stop services. Never require provider credentials for project tests.
 
+Tests whose `expected.type` is `exit-code` may evaluate a non-zero agent exit. Use this only for a deterministic reached task failure; return `error: true` when the failure action was not reached so provider or setup errors do not become task failures.
+
 ## README template
 
 - What behavior does this test measure?

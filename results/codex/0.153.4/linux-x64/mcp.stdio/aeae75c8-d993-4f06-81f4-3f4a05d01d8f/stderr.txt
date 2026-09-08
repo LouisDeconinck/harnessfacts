@@ -1,0 +1,26 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-Jeb4eJ/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a0808b-03c1-7541-b5cd-d5fa236e32d0
+--------
+user
+Call the get_token tool on the harnessfacts MCP server, then write its returned token exactly into result.txt.
+codex
+I’ll find the harnessfacts tool, call it, and write the returned token exactly to `result.txt`.
+
+mcp: harnessfacts/get_token started
+mcp: harnessfacts/get_token (completed)
+exec
+/bin/bash -lc "printf '%s' '6eac78d3-2095-485b-a553-d811da6273bf' > result.txt" in /tmp/harnessfacts-Jeb4eJ/fixture
+ succeeded in 0ms:
+codex
+Wrote the returned token exactly to [result.txt](/tmp/harnessfacts-Jeb4eJ/fixture/result.txt), with no trailing newline.
+tokens used
+24,984

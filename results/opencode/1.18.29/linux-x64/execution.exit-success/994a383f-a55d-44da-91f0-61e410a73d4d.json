@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "994a383f-a55d-44da-91f0-61e410a73d4d",
+  "agent": {
+    "id": "opencode",
+    "version": "1.18.29"
+  },
+  "test": {
+    "id": "execution.exit-success",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T10:24:32.896Z",
+    "durationMs": 19037.7769,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "Successful task returned exit code 0."
+  },
+  "evidence": {
+    "stdoutSha256": "244aa851cd96d733ee92470d45daba73939f7d43daea54598a7aa01c0d6e521d",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "result.txt",
+        "sha256": "26e401527b4dd3480e9a1fd08bd363aa5076b1c1afbadc9236754bb283d57bb8"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

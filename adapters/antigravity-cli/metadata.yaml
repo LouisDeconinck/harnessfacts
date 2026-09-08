@@ -1,0 +1,12 @@
+schema: harnessfacts.agent/v1
+id: antigravity-cli
+name: Antigravity CLI
+vendor: Google
+website: https://antigravity.google/
+documentation: https://antigravity.google/docs/cli/headless/
+invocation:
+  kind: cli
+platforms:
+  linux: true
+  macos: true
+  windows: true

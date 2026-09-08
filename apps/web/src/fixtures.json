@@ -2,6 +2,30 @@
   "schema": "harnessfacts.fixture-sources/v1",
   "tests": [
     {
+      "id": "execution.exit-failure",
+      "files": [
+        {
+          "path": "fail-task.sh",
+          "text": "#!/bin/sh\nprintf 'EXIT_FAILURE_REACHED\\n' > result.txt\nexit 17\n"
+        },
+        {
+          "path": "task.txt",
+          "text": "Run the deterministic failure script described in the prompt.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\n\nexport async function evaluate(ctx: EvaluationContext) {\n  const reached =\n    (await ctx.read(\"result.txt\"))?.trim() === \"EXIT_FAILURE_REACHED\";\n  if (!reached)\n    return {\n      pass: false,\n      error: true,\n      summary: \"The deterministic failing task was not reached.\",\n    };\n  const pass = ctx.output.exitCode !== null && ctx.output.exitCode !== 0;\n  return {\n    pass,\n    summary: pass\n      ? \"Reached task failure returned a non-zero exit code.\"\n      : \"Reached task failure returned exit code 0.\",\n  };\n}\n"
+    },
+    {
+      "id": "execution.exit-success",
+      "files": [
+        {
+          "path": "task.txt",
+          "text": "Write the requested successful token.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\n\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    ctx.output.exitCode === 0 &&\n    (await ctx.read(\"result.txt\"))?.trim() === \"EXIT_SUCCESS\";\n  return {\n    pass,\n    summary: pass\n      ? \"Successful task returned exit code 0.\"\n      : \"Successful task did not produce the expected zero exit and file result.\",\n  };\n}\n"
+    },
+    {
       "id": "execution.headless",
       "files": [
         {
@@ -20,6 +44,26 @@
         }
       ],
       "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\nexport async function evaluate(ctx: EvaluationContext) {\n  let pass = false;\n  try {\n    const value = JSON.parse((await ctx.read(\".response.json\")) || \"null\");\n    pass =\n      value?.token === ctx.test.expected.value &&\n      Object.keys(value).length === 1;\n  } catch {\n    /* Invalid JSON fails the capability test. */\n  }\n  return {\n    pass,\n    summary: pass\n      ? \"Structured response matched the expected object.\"\n      : \"No valid structured final response.\",\n  };\n}\n"
+    },
+    {
+      "id": "git.scope-boundary",
+      "files": [
+        {
+          "path": "nested/task.txt",
+          "text": "Write the requested token in nested/result.txt.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\n\nexport { setup } from \"./setup.ts\";\n\nexport async function evaluate(ctx: EvaluationContext) {\n  let report: { parent: string; sibling: string } | null = null;\n  try {\n    report = JSON.parse((await ctx.read(\"scope-report.json\")) || \"null\");\n  } catch {\n    /* Invalid harness evidence fails the observation. */\n  }\n  const pass =\n    (await ctx.read(\"nested/result.txt\"))?.trim() === ctx.test.expected.value &&\n    report?.parent === \"PARENT\" &&\n    report?.sibling === \"SIBLING\";\n  return {\n    pass,\n    summary: pass\n      ? \"The bounded task changed the nested target and preserved sentinels.\"\n      : \"The bounded task or sentinel checks did not match.\",\n  };\n}\n"
+    },
+    {
+      "id": "git.worktree-awareness",
+      "files": [
+        {
+          "path": "task.txt",
+          "text": "Write the requested token in the current worktree.\n"
+        }
+      ],
+      "evaluator": "import type { EvaluationContext } from \"../../../packages/core/src/types.ts\";\n\nexport { setup } from \"./setup.ts\";\n\nexport async function evaluate(ctx: EvaluationContext) {\n  const pass =\n    (await ctx.read(\"result.txt\"))?.trim() === ctx.test.expected.value &&\n    (await ctx.read(\"primary-result.txt\"))?.trim() === \"PRIMARY\" &&\n    (await ctx.read(\"worktree-root.txt\"))\n      ?.trim()\n      .replaceAll(\"\\\\\", \"/\")\n      .endsWith(\"/fixture\");\n  return {\n    pass,\n    summary: pass\n      ? \"The requested file was written in the linked worktree.\"\n      : \"The worktree and primary checkout did not show the expected separation.\",\n  };\n}\n"
     },
     {
       "id": "instructions.nested",

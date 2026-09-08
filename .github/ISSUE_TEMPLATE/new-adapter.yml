@@ -1,0 +1,24 @@
+name: Propose a new adapter
+description: Describe a maintainable executable adapter for a coding agent.
+title: "Add adapter: [agent]"
+labels: [adapter, help wanted]
+body:
+  - type: input
+    id: agent
+    attributes:
+      label: Agent
+    validations:
+      required: true
+  - type: input
+    id: docs
+    attributes:
+      label: Official CLI or documentation link
+    validations:
+      required: true
+  - type: textarea
+    id: mapping
+    attributes:
+      label: Proposed capability mapping
+      description: Cover headless execution, instructions, skills, MCP, structured output, and authentication.
+    validations:
+      required: true

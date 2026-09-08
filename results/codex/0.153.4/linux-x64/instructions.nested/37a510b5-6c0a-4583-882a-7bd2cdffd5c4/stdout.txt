@@ -1,0 +1,1 @@
+Created [src/result.txt](/tmp/harnessfacts-EgMzaH/fixture/src/result.txt) containing exactly `NESTED`, as required by `src/AGENTS.md`.

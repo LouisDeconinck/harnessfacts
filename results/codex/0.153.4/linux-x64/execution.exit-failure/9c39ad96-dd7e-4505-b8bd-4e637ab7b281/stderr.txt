@@ -1,0 +1,24 @@
+Reading additional input from stdin...
+OpenAI Codex v0.153.4
+--------
+workdir: /tmp/harnessfacts-fDzvC5/fixture
+model: gpt-6-astra
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: none
+reasoning summaries: none
+session id: 01a08087-d7be-7e11-88b3-4b4dc77d558e
+--------
+user
+Run `sh fail-task.sh` as the final action for this task. The script intentionally writes EXIT_FAILURE_REACHED and exits with a non-zero status. Do not recover from or hide that failure; the harness is measuring whether it reaches the CLI.
+codex
+I’ll run `sh fail-task.sh` as the final action and leave its failure unchanged.
+
+exec
+/bin/bash -lc 'sh fail-task.sh' in /tmp/harnessfacts-fDzvC5/fixture
+ exited 17 in 0ms:
+codex
+`sh fail-task.sh` exited with status 17. The failure was left unchanged.
+tokens used
+15,142

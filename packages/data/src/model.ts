@@ -7,11 +7,17 @@ import type {
 } from "../../schema/src/index.ts";
 export interface Data {
   schema: "harnessfacts.data/v1";
+  testHistory: TestDefinition[];
   agents: AgentDefinition[];
   capabilities: CapabilityDefinition[];
   tests: TestDefinition[];
   claims: DocumentationClaim[];
   results: RunResult[];
+}
+export interface ObservationQuery {
+  agent?: string;
+  capability?: string;
+  platform?: string;
 }
 export function latestResults(results: RunResult[]) {
   const latest = new Map<string, RunResult>();
@@ -78,4 +84,21 @@ export function compare(data: Data, ids: string[]) {
     if (!agent) throw new Error(`Unknown agent: ${id}`);
     return agent;
   });
+}
+
+export function getObservations(data: Data, query: ObservationQuery = {}) {
+  const capabilityByTest = new Map(
+    data.tests.map((test) => [test.id, test.capability]),
+  );
+  return data.results.filter(
+    (result) =>
+      (!query.agent || result.agent.id === query.agent) &&
+      (!query.capability ||
+        capabilityByTest.get(result.test.id) === query.capability) &&
+      (!query.platform || result.environment.os === query.platform),
+  );
+}
+
+export function latestObservation(data: Data, query: ObservationQuery) {
+  return latestResults(getObservations(data, query))[0];
 }

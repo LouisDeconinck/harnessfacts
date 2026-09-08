@@ -1,0 +1,43 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "f434773c-892e-4ce5-94b9-d6b19bb000a6",
+  "agent": {
+    "id": "antigravity-cli",
+    "version": "1.1.27"
+  },
+  "test": {
+    "id": "instructions.nested",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T10:45:30.655Z",
+    "durationMs": 50199.414676000015,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "Nested instruction was applied."
+  },
+  "evidence": {
+    "stdoutSha256": "c04d302684692e2d8d1747a4bc98e002effb66ea596a29975d78c237e3c8824d",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "src/result.txt",
+        "sha256": "8c33d3391cebeed667652e07ce304a73d52d3a9d0df891bfe207e616151ea75f"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

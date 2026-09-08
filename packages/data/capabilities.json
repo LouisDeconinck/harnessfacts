@@ -48,7 +48,7 @@
       "id": "execution.exit-code",
       "title": "Exit semantics",
       "category": "execution",
-      "description": "Usable process status on successful and failed execution. Test deferred."
+      "description": "Process status for a successful task and a reached deterministic task failure."
     },
     {
       "schema": "harnessfacts.capability/v1",
@@ -76,14 +76,14 @@
       "id": "git.worktree-awareness",
       "title": "Git worktrees",
       "category": "git",
-      "description": "Operation within a linked Git worktree. Test deferred."
+      "description": "Operation within a linked Git worktree rather than its primary checkout."
     },
     {
       "schema": "harnessfacts.capability/v1",
       "id": "git.scope-boundary",
       "title": "Repository boundary",
       "category": "git",
-      "description": "Observed edits under the configured working directory. Not a security guarantee. Test deferred."
+      "description": "Observed edits for a tightly bounded repository task. Not a security guarantee."
     }
   ]
 }

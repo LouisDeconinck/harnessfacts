@@ -1,0 +1,1 @@
+{"conversation_id":"aad9b9c1-eac9-4cff-b208-d16421828854","status":"SUCCESS","response":"I have written `EXIT_SUCCESS` into [result.txt](file:///tmp/harnessfacts-TrPEwR/fixture/result.txt).\n","duration_seconds":42.789705097,"num_turns":1,"usage":{"input_tokens":128760,"output_tokens":4470,"thinking_tokens":2716,"cache_read_tokens":397659,"total_tokens":133230}}

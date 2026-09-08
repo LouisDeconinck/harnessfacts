@@ -1,0 +1,47 @@
+{
+  "schema": "harnessfacts.run/v1",
+  "runId": "1d0e40c1-080e-4506-941b-3b64552eb7b2",
+  "agent": {
+    "id": "antigravity-cli",
+    "version": "1.1.27"
+  },
+  "test": {
+    "id": "mcp.stdio",
+    "version": "1.0.0"
+  },
+  "environment": {
+    "schema": "harnessfacts.environment/v1",
+    "os": "linux",
+    "osVersion": "7.0.0-31-generic",
+    "arch": "x64",
+    "runtime": {
+      "bun": "1.3.10"
+    }
+  },
+  "execution": {
+    "startedAt": "2026-09-08T10:49:26.646Z",
+    "durationMs": 90265.171837,
+    "exitCode": 0
+  },
+  "result": {
+    "status": "pass",
+    "summary": "MCP tool invocation and returned token verified."
+  },
+  "evidence": {
+    "stdoutSha256": "2c141166832f6d023606d88dce1b5427b37f5420eb3c88b69b3c3eecd90338e5",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts": [
+      {
+        "path": "mcp-receipt.jsonl",
+        "sha256": "6eb59c93fdc33d76ac71a248b5fbc0dad55f8adc5e6e5fa8a9b15813bca5ad27"
+      },
+      {
+        "path": "result.txt",
+        "sha256": "c8dd48222cad3d7601c41d5e9a7267df650895fccd95a20c33dd5dbd1828b62d"
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "community"
+  }
+}

@@ -12,11 +12,29 @@ One agent, one test, or one environment is enough to make a useful contribution.
 
 The harness records the exact versions, platform, date, hashes, and community provenance. Never commit secrets. A redaction change requires regenerating the matching evidence hash; disclose it for review.
 
+For Antigravity CLI, install `agy` and sign in once interactively, then run `bun run hf run antigravity-cli --all`. The adapter uses native OS keyring authentication with a temporary home; see [its setup notes](../adapters/antigravity-cli/README.md). No source changes are needed to submit observations from another installed version.
+
 ## Add an agent or test
 
 Adapters live under `adapters/<id>/` and own invocation and native configuration. Tests live under `tests/<category>/<name>/` and own deterministic expectations. Neither should duplicate the other's responsibility. Optional `authors: [{ github: your-handle }]` metadata appears on generated pages.
 
 Start with the repository's [adding an agent guide](https://github.com/LouisDeconinck/harnessfacts/blob/main/docs/adding-an-agent.md) or [adding a test guide](https://github.com/LouisDeconinck/harnessfacts/blob/main/docs/adding-a-test.md). The [launch issue list](https://github.com/LouisDeconinck/harnessfacts/blob/main/docs/launch-issues.md) has concrete opportunities.
+
+## Check compatibility in another repository
+
+The reusable `LouisDeconinck/harnessfacts/check@v1` action checks committed compatibility data; it does not execute an agent in the calling repository:
+
+```yaml
+- uses: LouisDeconinck/harnessfacts/check@v1
+  with:
+    agent: codex
+    platform: linux
+    require: |
+      instructions.root
+      mcp.stdio
+```
+
+It prints `UNKNOWN` when no completed observation exists and fails the workflow unless every requested capability is currently observed as `PASS`. Pin a repository ref while the action is experimental.
 
 ## Check your change
 

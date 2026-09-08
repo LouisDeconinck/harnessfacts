@@ -1,0 +1,1 @@
+Wrote exactly `EXIT_SUCCESS` to `result.txt`.

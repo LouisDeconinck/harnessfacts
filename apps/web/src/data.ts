@@ -3,6 +3,7 @@ export {
   capabilities,
   claims,
   getAgent,
+  getCapability,
   results,
   tests,
 } from "../../../packages/data/src/index.ts";

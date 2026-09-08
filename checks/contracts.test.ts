@@ -16,7 +16,12 @@ import {
   validateReferences,
 } from "../packages/core/src/data.ts";
 import { run } from "../packages/core/src/index.ts";
-import { agentSummary, latestResults } from "../packages/data/src/model.ts";
+import {
+  agentSummary,
+  getObservations,
+  latestObservation,
+  latestResults,
+} from "../packages/data/src/model.ts";
 import { DocumentationClaim, RunResult } from "../packages/schema/src/index.ts";
 import { dispatch } from "../tests/mcp/server.ts";
 import { setupMcp } from "../tests/mcp/setup.ts";
@@ -47,10 +52,13 @@ test("architectural boundaries and real catalog contracts", async () => {
 test("claims cannot create observations; latest attempts preserve completed evidence and environments", async () => {
   const data = await loadData();
   const first = data.results.find((r) => r.result.status === "pass")!;
+  const firstCapability = data.tests.find(
+    (test) => test.id === first.test.id,
+  )!.capability;
   const claim = DocumentationClaim.parse({
     schema: "harnessfacts.claim/v1",
     agent: first.agent.id,
-    capability: first.test.id,
+    capability: firstCapability,
     status: "documented",
     source: {
       url: "https://example.com/docs",
@@ -61,7 +69,7 @@ test("claims cannot create observations; latest attempts preserve completed evid
   expect(RunResult.safeParse(claim).success).toBe(false);
   const empty = { ...data, results: [], claims: [claim] };
   expect(
-    agentSummary(empty, first.agent.id)!.capabilities[first.test.id].observed,
+    agentSummary(empty, first.agent.id)!.capabilities[firstCapability].observed,
   ).toBe("unknown");
   const error = RunResult.parse({
     ...first,
@@ -79,11 +87,11 @@ test("claims cannot create observations; latest attempts preserve completed evid
     { ...data, results: [first, error] },
     first.agent.id,
   )!;
-  expect(summary.capabilities[first.test.id].observed).toBe("pass");
+  expect(summary.capabilities[firstCapability].observed).toBe("pass");
   expect(
-    summary.capabilities[first.test.id].observations[0].result.status,
+    summary.capabilities[firstCapability].observations[0].result.status,
   ).toBe("error");
-  expect(summary.capabilities[first.test.id].completed[0].runId).toBe(
+  expect(summary.capabilities[firstCapability].completed[0].runId).toBe(
     first.runId,
   );
   expect(
@@ -106,6 +114,25 @@ test("claims cannot create observations; latest attempts preserve completed evid
     expect(RunResult.safeParse(invalid).success).toBe(false);
   }
   expect((await validate()).results.length).toBe(data.results.length); // JSON artifacts are evidence, not mistaken for result records.
+});
+
+test("data queries filter observations without collapsing their provenance", async () => {
+  const data = await loadData();
+  const observations = getObservations(data, {
+    agent: "codex",
+    capability: "instructions.root",
+    platform: "linux",
+  });
+  expect(observations.length).toBeGreaterThan(0);
+  expect(observations.every((result) => result.agent.id === "codex")).toBe(
+    true,
+  );
+  expect(
+    latestObservation(data, {
+      agent: "codex",
+      capability: "instructions.root",
+    }),
+  ).toBeDefined();
 });
 
 test("MCP real HTTP transport, origin checks, tool receipt and malformed requests", async () => {

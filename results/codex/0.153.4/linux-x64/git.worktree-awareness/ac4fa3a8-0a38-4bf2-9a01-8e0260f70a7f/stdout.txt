@@ -1,0 +1,1 @@
+Wrote exactly `WORKTREE` into `result.txt`.

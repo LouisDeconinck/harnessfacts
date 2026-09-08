@@ -1,0 +1,11 @@
+{
+  "schema": "harnessfacts.test/v1",
+  "id": "git.worktree-awareness",
+  "capability": "git.worktree-awareness",
+  "title": "Git worktree awareness",
+  "version": "1.0.0",
+  "description": "Measures whether a task executed in a linked worktree writes to that worktree while the primary checkout remains unchanged.",
+  "prompt": "Write exactly WORKTREE into result.txt in the current directory.",
+  "expected": { "type": "file-content", "value": "WORKTREE" },
+  "tags": ["git", "repository"]
+}
