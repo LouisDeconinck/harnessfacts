@@ -44,7 +44,7 @@ Run the website locally with `bun run --cwd apps/web dev` after building data. A
 
 ## Contribute and roadmap
 
-Read [methodology](docs/methodology.md), [contribution guide](CONTRIBUTING.md), [adding an agent](docs/adding-an-agent.md), and [adding a test](docs/adding-a-test.md). [Sixteen ready-to-file issues](docs/launch-issues.md) cover genuine gaps.
+Read [methodology](docs/methodology.md), [contribution guide](CONTRIBUTING.md), [adding an agent](docs/adding-an-agent.md), and [adding a test](docs/adding-a-test.md). [Sixteen contribution issues](docs/launch-issues.md) cover genuine gaps.
 
 Next: verify the remaining adapters and Windows/macOS, add hooks/worktree/exit-code tests, then consider scheduled runners. OAuth, signed attestations, rankings, databases, and hosted APIs are outside v0.1.
 

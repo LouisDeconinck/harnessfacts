@@ -1,18 +1,24 @@
-# Release procedure
+# Releases and hosting
 
-The implementation and release are separate. Local builds do not publish, create a public repository, post issues, or deploy a website.
+The public repository is [LouisDeconinck/harnessfacts](https://github.com/LouisDeconinck/harnessfacts). The website runs on [GitHub Pages](https://louisdeconinck.github.io/harnessfacts/).
 
-1. Run frozen install, lint, typecheck, tests, validate, and build. Inspect all evidence for secrets and document tested coverage.
-2. Inspect package tarballs with `bun pm pack` in packages/data and packages/cli. Test the extracted data package under Node and the CLI under Bun outside the checkout.
-3. With maintainer authorization, create the public harnessfacts/harnessfacts repository and push the reviewed source. Enable private vulnerability reporting, apply .github/labels.json, and file the substantive drafts in docs/launch-issues.md.
-4. With npm namespace access and approval, publish @harnessfacts/data and harnessfacts from their package directories. Use `npm publish --access public`; never place npm credentials in source or result logs.
-5. Deploy apps/web/dist to the chosen static host. The site configuration targets harnessfacts.dev; configure domain ownership and HTTPS in the host. No backend is needed.
-6. Create a GitHub release with generated release notes. GitHub's generated notes recognize new contributors; .github/release.yml groups contributions without custom attribution infrastructure.
+## Website deployment
 
-The data package is ordinary ESM JavaScript with a JSON export. The CLI requires Bun and ships the source modules and fixture catalog needed at runtime. Results are written to the calling directory's results/ (or HARNESSFACTS_RESULTS_DIR), not the package installation. Run `harnessfacts validate` before submitting them.
+Pushes to main run `.github/workflows/pages.yml`: frozen dependency installation, lint, typecheck, project tests, result validation, static build, and deployment. Deployment uses GitHub Pages Actions artifacts and the github-pages environment. No model credentials or hosting secrets are required.
 
-OAuth tests, hosted execution, PR previews, scheduled runners, and signed attestations remain deferred. A live site, public repository, published npm packages, and posted contribution issues require external account access and an explicit publication decision.
+Astro uses `https://louisdeconinck.github.io` with base `/harnessfacts`; internal navigation, assets, and evidence links include that path. Configure both Astro and Pages if adding a custom domain later. Use the workflow_dispatch action to redeploy manually.
 
-## GitHub Pages
+## Package releases
 
-The public repository is `LouisDeconinck/harnessfacts`. `.github/workflows/pages.yml` checks, builds, and deploys `main` to https://louisdeconinck.github.io/harnessfacts/. GitHub Pages uses the Actions source. Astro uses the repository base path for navigation and evidence links. A custom domain can be configured later with corresponding Astro site/base changes.
+npm packages are prepared locally but are not yet published. Before a release:
+
+1. Run frozen install, lint, typecheck, tests, validate, and build. Inspect evidence for secrets and document coverage.
+2. Inspect tarballs using `bun pm pack` in packages/data and packages/cli. Test the extracted data package under Node/TypeScript and the CLI under Bun outside the checkout.
+3. With npm namespace access and publication authorization, publish @harnessfacts/data and harnessfacts using `npm publish --access public`. Never put credentials in source or evidence.
+4. Create a GitHub release using generated release notes. `.github/release.yml` groups changes; GitHub recognizes new contributors.
+
+The data package is dependency-free ESM JavaScript with TypeScript declarations and a JSON export. The CLI requires Bun and ships its fixture catalog. Runs write to the calling directory's results/ or HARNESSFACTS_RESULTS_DIR.
+
+## Community setup
+
+Project labels from `.github/labels.json` and all 16 [contribution issues](launch-issues.md) are published. Issue templates, a pull request template, contribution guidance, Apache-2.0 licensing, and private vulnerability reporting are enabled. OAuth tests, scheduled agent runners, and signed attestations remain deferred.
