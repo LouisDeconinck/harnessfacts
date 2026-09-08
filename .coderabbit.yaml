@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+reviews:
+  in_progress_fortune: false
+  auto_review:
+    enabled: true
+  path_instructions:
+    - path: "**"
+      instructions: >-
+        Follow AGENTS.md, documentation/design-document.md, and docs/methodology.md.
+        Adapters execute; tests evaluate. Documentation cannot create observations
+        and missing data is unknown. Semantic conformance test changes require a
+        version bump and historical definition. Never execute conformance fixtures
+        against this checkout or invent results. Keep project CI credential-free.
