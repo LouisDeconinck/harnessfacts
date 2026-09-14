@@ -30,19 +30,50 @@ export async function buildDataTypes() {
   for (const symbol of checker.getExportsOfModule(
     checker.getSymbolAtLocation(source)!,
   )) {
+    const resolved =
+      symbol.flags & ts.SymbolFlags.Alias
+        ? checker.getAliasedSymbol(symbol)
+        : symbol;
+    const isType = !!(resolved.flags & ts.SymbolFlags.Type);
     const type = checker
       .typeToString(
-        checker.getTypeOfSymbolAtLocation(symbol, source),
+        isType
+          ? checker.getDeclaredTypeOfSymbol(resolved)
+          : checker.getTypeOfSymbolAtLocation(symbol, source),
         source,
         flags,
       )
-      .replace(/import\("[^"]*\/schema\/src\/index"\)\./g, "");
+      .replace(
+        /import\("[^"]*\/(?:schema\/src\/index|data\/src\/model)"\)\./g,
+        "",
+      );
     if (type.includes("import("))
       throw new Error(`Unexpected external type in ${symbol.name}`);
-    declarations.push(`export declare const ${symbol.name}: ${type};`);
+    declarations.push(
+      isType
+        ? `export type ${symbol.name} = ${type};`
+        : `export declare const ${symbol.name}: ${type};`,
+    );
   }
-  await Bun.write(
-    join(root, "packages/data/dist/index.d.ts"),
-    `${declarations.join("\n")}\n`,
-  );
+  // Check the declarations alone, without the source aliases available to hide
+  // leaked names. The external NodeNext example exercises package resolution too.
+  const declarationPath = join(root, "packages/data/dist/index.d.ts");
+  await Bun.write(declarationPath, `${declarations.join("\n")}\n`);
+  const emitted = ts.createProgram([declarationPath], {
+    target: ts.ScriptTarget.ES2023,
+    module: ts.ModuleKind.NodeNext,
+    moduleResolution: ts.ModuleResolutionKind.NodeNext,
+    strict: true,
+    types: [],
+    noEmit: true,
+  });
+  const diagnostics = ts.getPreEmitDiagnostics(emitted);
+  if (diagnostics.length)
+    throw new Error(
+      diagnostics
+        .map((diagnostic) =>
+          ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n"),
+        )
+        .join("\n"),
+    );
 }

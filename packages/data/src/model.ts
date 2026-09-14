@@ -14,11 +14,11 @@ export interface Data {
   claims: DocumentationClaim[];
   results: RunResult[];
 }
-export interface ObservationQuery {
+export type ObservationQuery = {
   agent?: string;
   capability?: string;
   platform?: string;
-}
+};
 export function latestResults(results: RunResult[]) {
   const latest = new Map<string, RunResult>();
   for (const result of results) {

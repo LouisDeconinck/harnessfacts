@@ -4,15 +4,17 @@ One agent, one test, or one environment is enough to make a useful contribution.
 
 ## Contribute a result
 
-1. Clone the repository and install dependencies with `bun install --frozen-lockfile`.
+1. Fork/clone `https://github.com/LouisDeconinck/harnessfacts`, enter the checkout, create a branch, and install dependencies with `bun install --frozen-lockfile` (Bun 1.3.10+ and Git).
 2. Install and authenticate the coding agent you want to test. Read the security model in the repository.
-3. Run `bun run hf doctor` and `bun run hf run codex instructions.nested` (substitute your agent/test).
+3. Run `bun run hf doctor` and `bun run hf run codex instructions.nested` (substitute your agent/test), or `bun run hf run codex --all` for all twelve tests.
 4. Inspect the generated JSON, stdout, stderr, and artifacts. Keep failures and errors; do not rewrite them as passes.
-5. Run `bun run validate` and include the result JSON and its entire evidence directory in your pull request. Explain the environment and any adapter changes.
+5. Run `bun run validate`, commit the result JSON and its entire evidence directory to your fork, and open a pull request. Explain the environment, authentication method (not credentials), and any adapter changes. One test on one configuration is useful; no code change is required.
 
 The harness records the exact versions, platform, date, hashes, and community provenance. Never commit secrets. A redaction change requires regenerating the matching evidence hash; disclose it for review.
 
 For Antigravity CLI, install `agy` and sign in once interactively, then run `bun run hf run antigravity-cli --all`. The adapter uses native OS keyring authentication with a temporary home; see [its setup notes](../adapters/antigravity-cli/README.md). No source changes are needed to submit observations from another installed version.
+
+Gemini CLI is a **separate, runtime-unknown adapter**, not another name for Antigravity CLI. Verification may require a supported enterprise/Cloud or paid API setup depending on account eligibility and authentication. This adapter currently forwards only `GEMINI_API_KEY`, not Cloud/enterprise login state. See [Gemini setup and limitations](../adapters/gemini-cli/README.md). Do not purchase access or spend paid API credits merely to fill this gap; leave it unknown when suitable access is unavailable. Do not put real agent runs in project CI.
 
 ## Add an agent or test
 
@@ -22,19 +24,20 @@ Start with the repository's [adding an agent guide](https://github.com/LouisDeco
 
 ## Check compatibility in another repository
 
-The reusable `LouisDeconinck/harnessfacts/check@v1` action checks committed compatibility data; it does not execute an agent in the calling repository:
+After v0.1.0 is tagged, the reusable Action checks the dataset bundled with that revision; it does not execute an agent in the calling repository:
 
 ```yaml
-- uses: LouisDeconinck/harnessfacts/check@v1
+- uses: LouisDeconinck/harnessfacts/check@v0.1.0
   with:
     agent: codex
+    version: '0.153.4'
     platform: linux
     require: |
       instructions.root
       mcp.stdio
 ```
 
-It prints `UNKNOWN` when no completed observation exists and fails the workflow unless every requested capability is currently observed as `PASS`. Pin a repository ref while the action is experimental.
+Every requirement uses one exact version and full recorded environment. Only `PASS` succeeds; missing/inconclusive observations remain `UNKNOWN`, distinct from `FAIL`. The optional version selects an exact version, not a range. [Selection rules and outputs](../check/README.md) · [Complete workflow](../examples/compatibility.yml) · [External data-package example](../examples/data-consumer).
 
 ## Check your change
 

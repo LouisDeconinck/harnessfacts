@@ -1,0 +1,33 @@
+name: HarnessFacts compatibility check
+description: Assert compatibility evidence in the dataset bundled with this Action revision.
+inputs:
+  agent:
+    description: Agent ID, for example codex.
+    required: true
+  version:
+    description: Optional exact agent version (no ranges).
+    required: false
+  platform:
+    description: 'Optional platform filter: linux, macos, or windows.'
+    required: false
+  require:
+    description: Whitespace-separated capability IDs.
+    required: true
+outputs:
+  status:
+    description: PASS, FAIL, UNKNOWN, or ERROR (invalid input or unreadable data).
+    value: ${{ steps.check.outputs.status }}
+  configuration:
+    description: JSON containing the selected agent version and full recorded environment, or null.
+    value: ${{ steps.check.outputs.configuration }}
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      env:
+        HARNESSFACTS_AGENT: ${{ inputs.agent }}
+        HARNESSFACTS_VERSION: ${{ inputs.version }}
+        HARNESSFACTS_PLATFORM: ${{ inputs.platform }}
+        HARNESSFACTS_REQUIRE: ${{ inputs.require }}
+      run: node "$GITHUB_ACTION_PATH/action.mjs"

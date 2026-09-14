@@ -63,7 +63,6 @@ for (const path of [
 await chmod(join(distribution, "packages/cli/src/index.ts"), 0o755);
 for (const pkg of ["cli", "data"]) {
   await cp(join(root, "LICENSE"), join(root, `packages/${pkg}/LICENSE`));
-  await cp(join(root, "README.md"), join(root, `packages/${pkg}/README.md`));
 }
 if (await Bun.file(join(root, "apps/web/package.json")).exists()) {
   await rm(join(root, "apps/web/public/results"), {

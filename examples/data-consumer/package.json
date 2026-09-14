@@ -1,0 +1,14 @@
+{
+  "name": "harnessfacts-data-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "@harnessfacts/data": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

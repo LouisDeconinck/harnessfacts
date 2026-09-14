@@ -141,6 +141,25 @@ test("exit, worktree, and scope tests evaluate through the generic core", async 
       const result = await run(adapter, test, { outputDirectory });
       expect(result.result.result.status).toBe("pass");
     }
+    const failure = selected.find(
+      (test) => test.definition.id === "execution.exit-failure",
+    )!;
+    const executeRun = adapter.run;
+    for (const mode of ["unreached", "zero", "timeout", "provider"] as const) {
+      adapter.run = async (ctx) => {
+        const output = await executeRun(ctx);
+        if (mode === "unreached") await rm(join(ctx.cwd, "result.txt"));
+        return {
+          ...output,
+          exitCode: mode === "zero" ? 0 : 17,
+          timedOut: mode === "timeout",
+          executionError:
+            mode === "provider" ? "Provider request failed" : undefined,
+        };
+      };
+      const { result } = await run(adapter, failure, { outputDirectory });
+      expect(result.result.status).toBe(mode === "zero" ? "fail" : "error");
+    }
   } finally {
     await rm(outputDirectory, { recursive: true, force: true });
   }

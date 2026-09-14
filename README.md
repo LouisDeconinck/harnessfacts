@@ -2,64 +2,69 @@
 
 The open compatibility test suite for coding agents.
 
-Reproducible tests for instructions, skills, MCP, Git, hooks, CI, and other agent behavior across Codex, Antigravity CLI, OpenCode, and other coding agents.
+Does your agent follow nested instructions, discover skills, call MCP tools, or behave as expected in Git worktrees and CI? HarnessFacts records deterministic tests with exact versions, environments and inspectable evidence—not subjective scores or rankings. Documentation never counts as runtime evidence.
 
-HarnessFacts records evidence-backed observations from exact agent versions and environments. Documentation is stored separately and never counts as runtime evidence. There are no subjective scores or rankings.
+**Inspect compatibility:** [browse agents, tests and runs](https://louisdeconinck.github.io/harnessfacts/) or query the data package. **Contribute:** [run one test with an existing agent and submit its evidence](docs/contributing.md); no core-code changes required.
 
-## Quick start
+## Use the v0.1.0 packages
 
-Requires Bun 1.3.10+ and Git. Install and authenticate your preferred agent separately.
+These commands become available **after npm publication**:
 
 ```sh
-bun install --frozen-lockfile
-bun run hf doctor
-bun run hf tests
-bun run hf run codex instructions.nested
-bun run hf run antigravity-cli --all
-bun run hf run opencode --all
-bun run hf compare codex opencode
-bun run hf show codex --json
-bun run validate
-bun run build
+npm install @harnessfacts/data@0.1.0
+# CLI requires Bun 1.3.10+ and Git:
+bun add --global harnessfacts@0.1.0
+harnessfacts tests
+harnessfacts doctor
 ```
-
-Agent runs may consume an existing subscription or API credits. Project tests and builds need no agent credentials. Fixtures run in temporary directories; **this is not a security sandbox**. Read [the security model](docs/security-model.md).
-
-## Current agents and tests
-
-The adapter catalog includes Antigravity CLI (`agy`), Claude Code, Codex, Gemini CLI, OpenCode, and Aider. Antigravity CLI, Codex, and OpenCode have real Linux observations. Gemini CLI remains a separate, unverified adapter; its executable is unavailable in this environment. Verification refers to recorded tests and versions, not every listed capability.
-
-| Agent | Adapter | Runtime verified | Platforms |
-| --- | --- | --- | --- |
-| Codex | yes | yes | Linux |
-| Antigravity CLI (`agy`) | yes | yes | Linux |
-| Gemini CLI | yes | no | — |
-| OpenCode | yes | yes | Linux |
-| Claude Code | yes/partial | no | — |
-| Copilot CLI | planned/documented | no | — |
-| Aider | partial | no | — |
-
-Twelve executable tests cover root/nested/precedence instructions, headless and structured execution, exit semantics, MCP stdio/HTTP, skill discovery, Git worktrees, and repository scope. Hooks remain deferred until a supported agent exposes a deterministic noninteractive lifecycle configuration. Missing results stay unknown.
-
-Real run JSON and redacted evidence live under `results/`. Repeated runs measure repeatability on the same environment; they do not imply additional agent or platform coverage. Failures and timeouts are retained. See [initial observations](docs/initial-observations.md).
-
-## Data and website
-
-`bun run build` validates evidence, builds the dependency-free JavaScript data package, prepares the Bun CLI distribution, and builds the static Astro website in `apps/web/dist/`.
 
 ```ts
-import { getAgent, getObservations, latestObservation } from '@harnessfacts/data';
-console.log(getAgent('codex')?.capabilities['instructions.nested'].observed);
-console.log(getObservations({ agent: 'codex', platform: 'linux' }));
-console.log(latestObservation({ agent: 'codex', capability: 'instructions.nested' }));
+import { getAgent, getCapability, getObservations, latestObservation } from '@harnessfacts/data';
+console.log(getAgent('codex')?.name);
+console.log(getCapability('instructions.nested'));
+const query = { agent: 'codex', capability: 'instructions.nested', platform: 'linux' };
+console.log(getObservations(query));
+console.log(latestObservation(query));
 ```
 
-Run the website locally with `bun run --cwd apps/web dev` after building data. All comparison data comes from the generated data package. The CLI uses repository data directly. `--json` emits machine-readable output; `--timeout` sets a run's deadline in milliseconds. `HARNESSFACTS_RESULTS_DIR` selects a different local results directory.
+[Copyable Node/TypeScript project](examples/data-consumer). The data package contains the public snapshot; CLI `show`/`compare` read local results.
 
-## Contribute and roadmap
+## Check assumptions in CI
 
-Read [methodology](docs/methodology.md), [contribution guide](CONTRIBUTING.md), [adding an agent](docs/adding-an-agent.md), and [adding a test](docs/adding-a-test.md). [Eighteen contribution issues](docs/launch-issues.md) cover genuine gaps.
+After the release tag is published:
 
-Next: expand Antigravity CLI, Codex, and OpenCode coverage to Windows/macOS, verify the remaining adapters, and add hooks where a real supported mechanism can be tested. OAuth, signed attestations, rankings, databases, and hosted APIs are outside v0.1.
+```yaml
+- uses: LouisDeconinck/harnessfacts/check@v0.1.0
+  with:
+    agent: codex
+    version: '0.153.4'
+    platform: linux
+    require: |
+      instructions.root
+      mcp.stdio
+```
 
-Release steps are in [docs/releasing.md](docs/releasing.md). The public repository is https://github.com/LouisDeconinck/harnessfacts and the website is https://louisdeconinck.github.io/harnessfacts/. GitHub Actions checks and deploys main automatically. npm publication remains a separate release action.
+This asserts the release's dataset, **not your repository's runtime**. It uses one version/environment for every requirement; only `PASS` succeeds. `UNKNOWN` remains distinct from `FAIL`. [Selection rules](check/README.md) · [Complete workflow](examples/compatibility.yml).
+
+## Current coverage
+
+Twelve executable tests cover root/nested/precedence instructions, skills, MCP stdio/HTTP, headless/structured execution, paired exit semantics, Git worktrees and bounded repository edits. The 73 real runs include Codex, OpenCode and Antigravity CLI (`agy`) on Linux only. This is evidence for recorded configurations, not universal support.
+
+Claude Code, Gemini CLI and Aider adapters remain runtime **unknown**; Copilot CLI is planned/documented, not verified. Gemini CLI and Antigravity CLI are independent adapters. Hooks remain deferred. All failures, errors and historical runs are retained. [Initial observations](docs/initial-observations.md) · [Methodology](docs/methodology.md).
+
+## Contribute one observation
+
+```sh
+git clone https://github.com/LouisDeconinck/harnessfacts.git
+cd harnessfacts
+bun install --frozen-lockfile
+# Install/authenticate your existing agent before continuing.
+bun run hf doctor
+bun run hf run codex instructions.nested
+# Inspect the printed JSON path and its entire evidence directory.
+bun run validate
+```
+
+One test on one agent/version/OS is useful. Agent runs may consume subscriptions or API credits; project checks are credential-free. Temporary fixtures are **not a security sandbox**. [Contribution workflow](docs/contributing.md) · [Security model](docs/security-model.md) · [Real tracker opportunities](docs/launch-issues.md).
+
+[Release checklist](docs/releasing.md) · [v0.1.0 notes](docs/releases/v0.1.0.md) · Apache-2.0
