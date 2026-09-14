@@ -10,7 +10,7 @@ import { agents, files, resultsRoot, root, tests } from "./catalog.ts";
 import { readArtifact, sha256 } from "./index.ts";
 
 async function resultFiles() {
-  return (await files(resultsRoot, ".json")).filter(
+  return (await files(resultsRoot, (name) => name.endsWith(".json"))).filter(
     (path) => !relative(resultsRoot, path).split(sep).includes("artifacts"),
   );
 }
@@ -26,8 +26,9 @@ export async function loadData() {
     CapabilityDefinition.parse(value),
   );
   const claims = await Promise.all(
-    (await files(join(root, "claims"), ".yaml")).map(async (path) =>
-      DocumentationClaim.parse(Bun.YAML.parse(await Bun.file(path).text())),
+    (await files(join(root, "claims"), (name) => name.endsWith(".yaml"))).map(
+      async (path) =>
+        DocumentationClaim.parse(Bun.YAML.parse(await Bun.file(path).text())),
     ),
   );
   const results = await Promise.all(
@@ -36,9 +37,9 @@ export async function loadData() {
     ),
   );
   const testHistory = await Promise.all(
-    (await files(join(root, "tests/history"), ".json")).map(async (path) =>
-      TestDefinition.parse(await Bun.file(path).json()),
-    ),
+    (
+      await files(join(root, "tests/history"), (name) => name.endsWith(".json"))
+    ).map(async (path) => TestDefinition.parse(await Bun.file(path).json())),
   );
   return {
     testHistory,

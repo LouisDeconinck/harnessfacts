@@ -2,7 +2,7 @@ import { expect, test } from "bun:test";
 import { randomUUID } from "node:crypto";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import {
   agents,
   files,
@@ -42,7 +42,10 @@ test("architectural boundaries and real catalog contracts", async () => {
       /result\s*:\s*\{\s*status|status\s*:\s*["'](?:pass|fail)/,
     );
   }
-  for (const path of await files(join(root, "tests"), "evaluate.ts")) {
+  for (const path of await files(
+    join(root, "tests"),
+    (name) => name === "evaluate.ts",
+  )) {
     expect(await readFile(path, "utf8")).not.toMatch(
       /\b(?:codex|claude-code|gemini-cli|opencode|aider)\b/,
     );
@@ -242,6 +245,18 @@ test("redaction still applies when evaluator throws after agent output", async (
     if (previous === undefined) delete process.env.HF_TEST_SECRET;
     else process.env.HF_TEST_SECRET = previous;
     await rm(outputDirectory, { recursive: true, force: true });
+  }
+});
+
+test("catalog discovery matches exact manifest names, not suffixes", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "hf-files-"));
+  try {
+    for (const name of ["test.yaml", "contest.yaml", "evaluate.ts"])
+      await writeFile(join(dir, name), "");
+    const found = await files(dir, (name) => name === "test.yaml");
+    expect(found.map((path) => basename(path))).toEqual(["test.yaml"]);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
   }
 });
 

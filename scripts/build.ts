@@ -29,10 +29,12 @@ const sources = await Promise.all(
   (await tests()).map(async (test) => ({
     id: test.definition.id,
     files: await Promise.all(
-      (await files(join(test.directory, "fixture"), "")).map(async (path) => ({
-        path: relative(join(test.directory, "fixture"), path),
-        text: await readFile(path, "utf8"),
-      })),
+      (await files(join(test.directory, "fixture"), () => true)).map(
+        async (path) => ({
+          path: relative(join(test.directory, "fixture"), path),
+          text: await readFile(path, "utf8"),
+        }),
+      ),
     ),
     evaluator: await readFile(join(test.directory, "evaluate.ts"), "utf8"),
   })),

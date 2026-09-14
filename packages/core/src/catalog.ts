@@ -9,7 +9,7 @@ export const resultsRoot = resolve(
 );
 export async function files(
   directory: string,
-  suffix: string,
+  match: (name: string) => boolean,
 ): Promise<string[]> {
   const out: string[] = [];
   let entries: import("node:fs").Dirent[];
@@ -21,32 +21,37 @@ export async function files(
   }
   for (const entry of entries) {
     const path = join(directory, entry.name);
-    if (entry.isDirectory()) out.push(...(await files(path, suffix)));
-    else if (entry.isFile() && entry.name.endsWith(suffix)) out.push(path);
+    if (entry.isDirectory()) out.push(...(await files(path, match)));
+    else if (entry.isFile() && match(entry.name)) out.push(path);
   }
   return out.sort();
 }
 export async function agents() {
   return Promise.all(
-    (await files(join(root, "adapters"), "metadata.yaml")).map(async (path) =>
+    (
+      await files(join(root, "adapters"), (name) => name === "metadata.yaml")
+    ).map(async (path) =>
       AgentDefinition.parse(Bun.YAML.parse(await Bun.file(path).text())),
     ),
   );
 }
 export async function tests(): Promise<ConformanceTest[]> {
   return Promise.all(
-    (await files(join(root, "tests"), "test.yaml")).map(async (path) => ({
-      definition: TestDefinition.parse(
-        Bun.YAML.parse(await Bun.file(path).text()),
-      ),
-      directory: dirname(path),
-      setup: (
-        await import(pathToFileURL(join(dirname(path), "evaluate.ts")).href)
-      ).setup,
-      evaluate: (
-        await import(pathToFileURL(join(dirname(path), "evaluate.ts")).href)
-      ).evaluate,
-    })),
+    (await files(join(root, "tests"), (name) => name === "test.yaml")).map(
+      async (path) => {
+        const evaluator = await import(
+          pathToFileURL(join(dirname(path), "evaluate.ts")).href
+        );
+        return {
+          definition: TestDefinition.parse(
+            Bun.YAML.parse(await Bun.file(path).text()),
+          ),
+          directory: dirname(path),
+          setup: evaluator.setup,
+          evaluate: evaluator.evaluate,
+        };
+      },
+    ),
   );
 }
 export async function loadAdapter(id: string): Promise<AgentAdapter> {
